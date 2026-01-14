@@ -7,7 +7,7 @@ The hardware used for this project:
 - **Clock Speed**: *16Mhz*
 - **Pins**: *Port B pin 7 (PB7)*
 
-## ATmega328P Architecture
+## ATmega2560 Architecture
 ### Memory Map
 - **Registers**: 0x000 - 0x001F (32 general purpose registers)
 - **I/O Registers**: 0x0020 - 0x005F (64 registers)
@@ -16,7 +16,7 @@ The hardware used for this project:
 - **External SRAM**: 0x2200 - 0xFFFF (0 - 64k x 8)
 
 ### Clock System
-The ATmega2560 defaults to an internal 8MHz RC oscillator divided down to 1MHz. The Arduino Mega overrides this using an external 16MHz crystal. F_CPU must be defined so functions like `_delay_ms()` can calculate accurate timing—without it, delays would be wrong by a factor of 16.
+The ATmega2560 defaults to an internal 8MHz RC oscillator divided down to 1MHz. The Arduino Mega overrides this using an external 16MHz crystal. F_CPU must be defined so functions like `_delay_ms()` can calculate accurate timing and without it, delays would be wrong by a factor of 16.
 
 ## Build
 How to build this project:
