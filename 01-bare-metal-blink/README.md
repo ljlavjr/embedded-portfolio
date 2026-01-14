@@ -7,28 +7,28 @@ The hardware used for this project:
 - **Clock Speed**: *16Mhz*
 - **Pins**: *Port B pin 5 (PB5)*
 
+## ATmega328P Architecture
+### Memory Map
+### Clock System
+
 ## Build
 How to build this project:
-
 ### Prerequisites
 This is what should be installed (using *sudo apt install ...*):
 - **gcc-avr**
 - **avr-libc**
 - **avrdude**
 - **make**
-
 ### Compile
 ```bash
 make
 ```
-
 ### Flash
 ```bash
 make flash
 ```
 
 ## What I Learned
-
 ### GPIO registers (DDRx, PORTx)
 GPIO registers are configured and accessed differently. The DDRx register sets whether a pin at a specific GPIO port is an output pin or an input pin. If it is an output pin, DDRx is set to logical high (1) like this: 
 ```c
