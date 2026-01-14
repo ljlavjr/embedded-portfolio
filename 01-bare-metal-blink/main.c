@@ -3,12 +3,12 @@
 
 int main(void)
 {
-	DDRB |= (1 << PB5);
+	DDRB |= (1 << PB7);
 	while(1)
 	{
-		PORTB |= (1 << PB5);
+		PORTB |= (1 << PB7);
 		_delay_ms(1000);
-		PORTB &= ~(1 << PB5);
+		PORTB &= ~(1 << PB7);
 		_delay_ms(1000);
 	}
 	return 0;

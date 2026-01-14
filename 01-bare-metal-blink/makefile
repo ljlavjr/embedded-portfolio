@@ -1,5 +1,5 @@
 # Which chip
-MCU = atmega328p
+MCU = atmega2560
 # Clock speed in Hz
 F_CPU = 16000000
 
@@ -15,8 +15,9 @@ CFLAGS = -Wall -Os -mmcu=$(MCU) -DF_CPU=$(F_CPU)
 # Converts the complied ELF file to the HUX format the chip understands
 OBJCOPY = avr-objcopy
 # Both below for avrdude when you flash. Arduino uno uses the arduino protocol. Port is where the device is connected to.
-PROGRAMMER = arduino
+PROGRAMMER = wiring
 PORT = /dev/ttyACM0
+BAUD = 115200
 
 # BUILD TARGETS
 
@@ -34,7 +35,7 @@ main.hex: main.elf
 # UTILITY TARGETS
 
 flash: main.hex
-	avrdude -c $(PROGRAMMER) -p $(MCU) -P $(PORT) -U flash:w:main.hex:i
+	avrdude -c $(PROGRAMMER) -p $(MCU) -P $(PORT) -b $(BAUD) -D  -U flash:w:main.hex:i
 
 clean:
 	rm -f main.o main.elf main.hex
