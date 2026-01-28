@@ -1,7 +1,7 @@
 #include "uart.h"
 #include <avr/io.h>
 
-void uart_init(int baud) {
+void uart_init(uint32_t baud) {
     // register setup
 } 
 
