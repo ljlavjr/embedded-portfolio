@@ -1,0 +1,17 @@
+name: Build AVR Projects
+
+on:
+  push:
+    branches: [main]
+
+jobs:
+  build:
+    runs-on: self-hosted
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Build bare-metal-blink
+        run: |
+          cd 01-bare-metal-blink
+          make clean && make
