@@ -53,3 +53,20 @@ void uart_print(const char *str) {
         str++;
     }
 }
+
+void uart_readline(char *buffer, uint8_t max_len) {
+        uint8_t i = 0;
+
+        while( i < max_len - 1) {
+            char c = uart_receive();
+
+            if (c == '\r' || c =='\n') break;
+
+            uart_transmit(c);
+            buffer[i] = c;
+            i++;
+        }
+        
+        buffer[i] = '\0';
+        uart_print("\r\n");
+}
