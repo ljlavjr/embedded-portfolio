@@ -1,6 +1,7 @@
 #include "uart.h"
 #include <avr/io.h>
 
+// Main function
 int main(void) {
     
     uart_init(9600);
