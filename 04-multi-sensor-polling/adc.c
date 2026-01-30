@@ -4,7 +4,7 @@
 void adc_init(void) {
     // Enable the ADC
     // Set the prescalar to 128 (At 16Mhz w/ prescalar of 128: ADC clock = 125kHz)
-        ADCSRA = (1 << ADEN) | (1 << ADPS0) | (1 << ADPS1) | (1 << ADPS2);
+    ADCSRA = (1 << ADEN) | (1 << ADPS0) | (1 << ADPS1) | (1 << ADPS2);
 }
 
 uint16_t adc_read(uint8_t channel) {
