@@ -77,7 +77,7 @@ The buffer is empty when `head == tail`. It's full when the next head position w
 
 
 ### The `volatile` Keyword
-The ring buffer is accessed by both the ISR and main code. Without `volatile`, the compiler might optimize away reads—caching values in registers instead of reading from memory. This breaks everything because main code would never see the ISR's updates.
+The ring buffer is accessed by both the ISR and main code. Without `volatile`, the compiler might optimize away reads by caching values in registers instead of reading from memory. This breaks everything because main code would never see the ISR's updates.
 ```c
 static volatile RingBuffer_t rx_buffer;
 ```
