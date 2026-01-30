@@ -11,7 +11,22 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Build bare-metal-blink
+      - name: Build 01-bare-metal-blink
         run: |
           cd 01-bare-metal-blink
+          make clean && make
+
+      - name: Build 02-uart-driver
+        run: |
+          cd 02-uart-driver
+          make clean && make
+
+      - name: Build 03-uart-interrupt
+        run: |
+          cd 03-uart-interrupt
+          make clean && make
+
+      - name: Build 04-multi-sensor-polling
+        run: |
+          cd 04-multi-sensor-polling
           make clean && make
