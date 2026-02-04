@@ -1,4 +1,4 @@
-name: Build AVR Projects
+name: Build Embedded Projects
 
 on:
   push:
