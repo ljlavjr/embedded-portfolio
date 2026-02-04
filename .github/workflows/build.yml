@@ -30,3 +30,8 @@ jobs:
         run: |
           cd 04-multi-sensor-polling
           make clean && make
+      
+      - name: Build 05-stm32-bare-metal
+        run: |
+          cd 05-stm32-bare-metal
+          make clean && make
