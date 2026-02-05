@@ -47,3 +47,4 @@ call_main:
     /* If main returns, loop forever */
 hang:
     b hang
+    
