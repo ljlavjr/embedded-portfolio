@@ -19,7 +19,7 @@ This is a collection of projects that build from the "Hello World" of embedded p
 ### Phase 2: STM32 Bare-Metal
 | # | Project | Platform | Skills | Status |
 |---|---------|----------|--------|--------|
-| 05 | Bare-Metal Startup | STM32F407 | ARM Startup, Linker Scripts, Vector Table | Planned |
+| 05 | Bare-Metal Startup | STM32F407 | ARM Startup, Linker Scripts, Vector Table | In Progress |
 | 06 | Custom HAL | STM32F407 | GPIO, UART, SPI Drivers, Abstraction | Planned |
 | 07 | DMA Data Acquisition | STM32F407 | DMA, ADC, Double Buffering | Planned |
 
@@ -38,29 +38,36 @@ This is a collection of projects that build from the "Hello World" of embedded p
 | 13 | Modbus RTU | STM32F407 | Industrial Protocol, Master/Slave, CRC | Planned |
 | 14 | OBD-II Reader | STM32F407 | Automotive Diagnostics, CAN, PID Parsing | Planned |
 
-### Phase 5: IoT & Wireless
+### Phase 5: Firmware Fundamentals
 | # | Project | Platform | Skills | Status |
 |---|---------|----------|--------|--------|
-| 15 | MQTT Sensor Node | ESP32 | WiFi, MQTT, JSON, Sleep Modes | Planned |
-| 16 | Motion Detection Camera | ESP32-CAM | Camera Interface, Image Processing, Alerts | Planned |
-| 17 | BLE + WiFi Gateway | Arduino Uno R4 WiFi | Multi-protocol, Bridging, FreeRTOS | Planned |
-| 18 | OTA Update System | Arduino Uno R4 WiFi | Bootloaders, Flash Management, Verification | Planned |
+| 15 | Watchdog Recovery | STM32F407 | IWDG, Fault Logging, Safe State | Planned |
+| 16 | Custom Bootloader | STM32F407 | Dual-bank Flash, Jump to App, Update Protocol | Planned |
+| 17 | USB CDC Device | STM32F407 | USB Stack, Descriptors, Enumeration | Planned |
 
-### Phase 6: Embedded Linux
+### Phase 6: IoT & Wireless
 | # | Project | Platform | Skills | Status |
 |---|---------|----------|--------|--------|
-| 19 | PRU Real-Time Control | BeagleBone Black | PRU Assembly, Shared Memory, Hard Real-time | Planned |
-| 20 | Linux Kernel Driver | BeagleBone Black | Kernel Modules, Character Devices, sysfs | Planned |
-| 21 | Device Tree Overlays | BeagleBone Black | Device Tree, Hardware Description | Planned |
-| 22 | Custom Yocto Image | Raspberry Pi Zero 2W | Build Systems, Cross-compilation | Planned |
+| 18 | MQTT Sensor Node | ESP32 | WiFi, MQTT, JSON, Sleep Modes | Planned |
+| 19 | Motion Detection Camera | ESP32-CAM | Camera Interface, Image Processing, Alerts | Planned |
+| 20 | BLE + WiFi Gateway | Arduino Uno R4 WiFi | Multi-protocol, Bridging, FreeRTOS | Planned |
+| 21 | OTA Update System | Arduino Uno R4 WiFi | Bootloaders, Flash Management, Verification | Planned |
 
-### Phase 7: Networking & Security
+### Phase 7: Embedded Linux
 | # | Project | Platform | Skills | Status |
 |---|---------|----------|--------|--------|
-| 23 | Secure Bootloader | STM32F407 | Cryptographic Verification, Secure Boot | Planned |
-| 24 | Encrypted MQTT | ESP32 | TLS, Certificates, Secure Communication | Planned |
-| 25 | Network Packet Analyzer | BeagleBone Black | Raw Sockets, Protocol Parsing, Filtering | Planned |
-| 26 | Embedded Firewall | Raspberry Pi Zero 2W | iptables, Traffic Rules, Logging | Planned |
+| 22 | PRU Real-Time Control | BeagleBone Black | PRU Assembly, Shared Memory, Hard Real-time | Planned |
+| 23 | Linux Kernel Driver | BeagleBone Black | Kernel Modules, Character Devices, sysfs | Planned |
+| 24 | Device Tree Overlays | BeagleBone Black | Device Tree, Hardware Description | Planned |
+| 25 | Custom Yocto Image | Raspberry Pi Zero 2W | Build Systems, Cross-compilation | Planned |
+
+### Phase 8: Networking & Security
+| # | Project | Platform | Skills | Status |
+|---|---------|----------|--------|--------|
+| 26 | Secure Bootloader | STM32F407 | Cryptographic Verification, Secure Boot | Planned |
+| 27 | Encrypted MQTT | ESP32 | TLS, Certificates, Secure Communication | Planned |
+| 28 | Network Packet Analyzer | BeagleBone Black | Raw Sockets, Protocol Parsing, Filtering | Planned |
+| 29 | Embedded Firewall | Raspberry Pi Zero 2W | iptables, Traffic Rules, Logging | Planned |
 
 ### Infrastructure
 | # | Project | Platform | Skills | Status |
