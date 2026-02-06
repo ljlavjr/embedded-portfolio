@@ -33,6 +33,9 @@ typedef enum {
 
 #define PA2 2   // GPIOA Pin 2
 #define PA3 3   // GPIOA Pin 3
+#define PA5 5   // GPIOA Pin 5
+#define PA6 6   // GPIOA Pin 6
+#define PA7 7   // GPIOA Pin 7
 
 
 #define PD12 12 // GPIOD Pin 12 (Green LED)
