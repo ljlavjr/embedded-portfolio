@@ -30,10 +30,10 @@ void gpio_set_pull(GPIO_TypeDef *port, uint8_t pin, GPIO_PULL_UD pull) {
 void write_pin(GPIO_TypeDef *port, uint8_t pin, uint32_t value) {
     // We use BSRR bc it does not need read-modify-write cycle.
     // Each bit is an action not state. Atmoic and preferred over ODR
-    if (value == 1) {
+    if (value) {
         port->BSRR = (1 << pin);
     }
-    if (value == 0) {
+    else {
         port->BSRR = (1 << (pin + 16));
     }
 }

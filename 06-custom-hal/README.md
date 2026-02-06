@@ -1,131 +1,210 @@
-# STM32 Bare-Metal Blink
+# Custom HAL for STM32F407
 
-**Description:** This project is an introduction to ARM development on a STM32 board. We learn how to set up the board using our own linker and startup files and how to address registers in the Cortex MCU using manual memory addressing. Then with everything set up we blink one of the on-board LEDs.
+## Overview
+This project builds a reusable Hardware Abstraction Layer (HAL) for GPIO on the STM32F407. Instead of manipulating raw register addresses throughout application code, we create clean functions like `gpio_init()` and `write_pin()` that hide the hardware details. This makes code more readable, portable, and less error-prone.
 
 ## Hardware
 - **Board**: STM32F407G-DISC1
 - **Chip**: STM32F407VGT6 (ARM Cortex-M4)
-- **Clock Speed**: 16MHz (default HSI, no PLL configured)
-- **Flash**: 1MB
-- **RAM**: 192KB
-- **LED Used**: PD12 (Green)
+- **LED Used**: PD14 (Red)
 
-## STM32F407 Architecture
+## Concepts Learned
+- Hardware abstraction layers and why they matter
+- Register structs for memory-mapped I/O
+- API design for embedded drivers
+- Clear-then-set pattern for multi-bit register fields
+- Atomic register access using BSRR
 
-### Memory Map
-| Region | Start Address | Size | Purpose |
-|--------|---------------|------|---------|
-| Flash | 0x08000000 | 1024KB | Program code, constants, vector table |
-| RAM | 0x20000000 | 128KB | Variables, stack |
-
-The Cortex-M4 boots from 0x08000000. The first two words at that address are:
-1. Initial stack pointer (top of RAM)
-2. Reset handler address
-
-### Boot Process
-1. **Power on** — Cortex-M4 reads first two words from 0x08000000
-2. **Load SP** — First word loaded into Stack Pointer (we provide _estack, top of RAM)
-3. **Load PC** — Second word loaded into Program Counter (Reset_Handler address)
-4. **Reset_Handler runs:**
-   - Copies .data section from flash to RAM (initialized globals)
-   - Zeros .bss section in RAM (uninitialized globals)
-   - Calls main()
-5. **main() runs** — Your code takes over
-6. **If main returns** — Infinite loop (hang) to prevent undefined behavior
-
-## Build
-
-### Prerequisites
-This is what should be installed (using *sudo apt install ...*):
-- **gcc-arm-none-eabi**
-- **binutils-arm-none-eabi**
-- **libnewlib-arm-none-eabi**
-- **stlink-tools**
-- **make**
-### Compile
-```bash
-make
+## File Structure
 ```
-### Flash
+06-custom-hal/
+├── src/
+│   ├── main.c           # Application code using HAL
+│   ├── startup.s        # Startup code from Project 05
+│   └── hal/
+│       └── gpio.c       # GPIO driver implementation
+├── include/
+│   ├── stm32f407.h      # Register definitions
+│   └── hal/
+│       └── gpio.h       # GPIO API
+├── linker.ld
+└── Makefile
+```
+
+## Register Struct Approach
+
+Instead of defining individual register addresses:
+```c
+#define GPIOD_MODER  (*(volatile uint32_t *)0x40020C00)
+#define GPIOD_OTYPER (*(volatile uint32_t *)0x40020C04)
+#define GPIOD_ODR    (*(volatile uint32_t *)0x40020C14)
+```
+
+We define a struct that mirrors the register layout:
+```c
+typedef struct {
+    volatile uint32_t MODER;
+    volatile uint32_t OTYPER;
+    volatile uint32_t OSPEEDR;
+    volatile uint32_t PUPDR;
+    volatile uint32_t IDR;
+    volatile uint32_t ODR;
+    volatile uint32_t BSRR;
+    volatile uint32_t LCKR;
+    volatile uint32_t AFR[2];
+} GPIO_TypeDef;
+
+#define GPIOD ((GPIO_TypeDef *) 0x40020C00)
+```
+
+Now we access registers as `GPIOD->MODER`, `GPIOD->ODR`, etc. This is cleaner and matches how vendor libraries like CMSIS work.
+
+## API Reference
+
+### rcc_gpio_clock_enable()
+Enables the peripheral clock for a GPIO port. Must be called before using any GPIO functions.
+```c
+void rcc_gpio_clock_enable(GPIO_TypeDef *port);
+```
+
+**Example:**
+```c
+rcc_gpio_clock_enable(GPIOD);
+```
+
+### gpio_init()
+Configures a pin's mode (input, output, alternate function, or analog).
+```c
+void gpio_init(GPIO_TypeDef *port, uint8_t pin, GPIO_MODE mode);
+```
+
+**Modes:**
+- `GPIO_MODE_INPUT` — Digital input
+- `GPIO_MODE_OUTPUT` — Digital output
+- `GPIO_MODE_ALT` — Alternate function (UART, SPI, etc.)
+- `GPIO_MODE_AN` — Analog (ADC)
+
+**Example:**
+```c
+gpio_init(GPIOD, 14, GPIO_MODE_OUTPUT);
+```
+
+### gpio_set_otype()
+Sets output type for a pin.
+```c
+void gpio_set_otype(GPIO_TypeDef *port, uint8_t pin, GPIO_OUTPUT_TYPE otype);
+```
+
+**Types:**
+- `GPIO_OUTTYPE_PUSHPULL` — Default, drives high and low
+- `GPIO_OUTTYPE_OPENDRAIN` — Only drives low, needs external pull-up
+
+### gpio_set_speed()
+Sets output speed (slew rate) for a pin.
+```c
+void gpio_set_speed(GPIO_TypeDef *port, uint8_t pin, GPIO_SPEED speed);
+```
+
+**Speeds:** `GPIO_SPEED_LOW`, `GPIO_SPEED_MEDIUM`, `GPIO_SPEED_HIGH`, `GPIO_SPEED_VHIGH`
+
+### gpio_set_pull()
+Configures internal pull-up/pull-down resistors.
+```c
+void gpio_set_pull(GPIO_TypeDef *port, uint8_t pin, GPIO_PULL_UD pull);
+```
+
+**Options:** `GPIO_PULL_UD_NOPUPD`, `GPIO_PULL_UD_PULLU`, `GPIO_PULL_UD_PULLD`
+
+### write_pin()
+Sets a pin high or low.
+```c
+void write_pin(GPIO_TypeDef *port, uint8_t pin, uint32_t value);
+```
+
+**Example:**
+```c
+write_pin(GPIOD, 14, HIGH);
+write_pin(GPIOD, 14, LOW);
+```
+
+### read_pin()
+Reads the current state of a pin. Returns 0 or 1.
+```c
+uint8_t read_pin(GPIO_TypeDef *port, uint8_t pin);
+```
+
+**Example:**
+```c
+if (read_pin(GPIOA, 0)) {
+    // Button pressed
+}
+```
+
+### toggle_pin()
+Inverts the current state of an output pin.
+```c
+void toggle_pin(GPIO_TypeDef *port, uint8_t pin);
+```
+
+## Build & Flash
 ```bash
+make clean && make
 st-flash write main.bin 0x08000000
 ```
-**NOTE**: You may run into permission issues. To fix this, you have two options:
 
-*Quick Fix*:
-```bash
-sudo st-flash write main.bin 0x08000000
+## Design Decisions
+
+### Explicit Clock Enable (Option B)
+We require the user to call `rcc_gpio_clock_enable()` before using a port, rather than enabling clocks automatically inside `gpio_init()`. This makes the dependency explicit in the code and matches how other peripherals (UART, SPI, timers) work. The pattern "enable clock, then init" becomes muscle memory.
+
+### Separate Configuration Functions
+Instead of one large init function with many parameters:
+```c
+gpio_init(port, pin, mode, otype, speed, pull);  // Too many params
 ```
-*Proper Fix (udev rules so you do not need sudo)*:
-```bash
-sudo nano /etc/udev/rules.d/99-stlink.rules
+
+We use the mode in init and provide separate functions for other settings:
+```c
+gpio_init(GPIOD, 14, GPIO_MODE_OUTPUT);  // Common case is simple
+gpio_set_speed(GPIOD, 14, GPIO_SPEED_HIGH);  // Only when needed
 ```
-Add:
-```bash
-SUBSYSTEM=="usb", ATTR{idVendor}=="0483", ATTR{idProduct}=="3748", MODE="0666"
-SUBSYSTEM=="usb", ATTR{idVendor}=="0483", ATTR{idProduct}=="374b", MODE="0666"
+
+Most pins only need mode set. Output type, speed, and pull-up/pull-down have sensible defaults (push-pull, low speed, no pull).
+
+### BSRR vs ODR for Writes
+We use the BSRR register instead of ODR for `write_pin()`. BSRR is write-only and atomic—writing a 1 to bits 0-15 sets the pin, writing a 1 to bits 16-31 clears it. No read-modify-write cycle needed, so no risk of race conditions with interrupts.
+
+## Key Patterns
+
+### Clear-Then-Set for Multi-Bit Fields
+MODER uses 2 bits per pin. To change a value safely:
+```c
+port->MODER &= ~(0x3 << (pin * 2));   // Clear both bits
+port->MODER |= (mode << (pin * 2));   // Set new value
 ```
-Then reload:
-```bash
-sudo udevadm control --reload-rules
-sudo udevadm trigger
+
+Just OR-ing would fail if bits were already set. This pattern applies to OSPEEDR, PUPDR, AFR, and many other registers.
+
+### Bit Position Calculation
+For 2-bit fields: `pin * 2`
+For 4-bit fields: `pin * 4`
+
+### Extracting a Single Bit
+Shift right to bring the bit to position 0, then mask:
+```c
+return (port->IDR >> pin) & 0x1;
 ```
-## Files Explained
-
-### linker.ld
-This file defines the memory layout, entry point, and sections of our Cortex-M4 chip. Unlike AVR, we need to define all of this manually which gives us full control but more responsibility. 
-
-In the MEMORY section we define the ORIGIN address of our FLASH and RAM storage as well as the size of each of them. In ENTRY we define the assembly code method in startup.s that we call on system turn on. 
-
-In SECTIONS we define where to place code and data on startup:
-- **.isr_vector** — Vector table, must be first in FLASH (address 0x08000000)
-- **.text** — Program code, stored in FLASH
-- **.rodata** — Read-only data (const variables), stored in FLASH
-- **.data** — Initialized globals, stored in FLASH but copied to RAM at startup
-- **.bss** — Uninitialized globals, located in RAM, zeroed at startup
-
-The linker script also exports symbols (_sdata, _edata, _sidata, _sbss, _ebss, _estack) that startup.s uses to know where to copy and zero memory.
-
-### startup.s
-This is assembly code that runs before main(). It handles the low-level setup that C can't do itself.
-
-**Vector Table:**
-- Placed at 0x08000000 (start of flash)
-- First entry: initial stack pointer (_estack from linker script)
-- Second entry: address of Reset_Handler
-
-**Reset_Handler:**
-1. Copies .data section from flash to RAM using _sidata (source), _sdata (dest start), _edata (dest end)
-2. Zeros .bss section using _sbss (start) and _ebss (end)
-3. Calls main() with `bl main`
-4. If main ever returns, enters infinite loop to prevent undefined behavior
-
-This is code you normally never see—on AVR or when using vendor libraries, it's provided for you. Writing it yourself teaches you exactly how the chip boots.
-
-### main.c
-This is the C code that runs our program for blinking the green LED. It defines our registers as macros to be accessed by casting the memory address as a pointer and then dereferencing that same pointer.
-
-**Registers used:**
-- **RCC_AHB1ENR** (0x40023830) — Enables peripheral clocks. We set bit 3 to turn on GPIOD clock.
-- **GPIOD_MODER** (0x40020C00) — Configures pin modes. Each pin uses 2 bits (00=input, 01=output). We set bits 25-24 to 01 for PD12 output.
-- **GPIOD_ODR** (0x40020C14) — Output data register. Writing to bit 12 controls PD12 state.
-
-**Key difference from AVR:** On STM32, peripherals are disabled by default to save power. You must enable the GPIO clock in RCC before the port will respond. Forgetting this is a common mistake.
-
-**Program flow:**
-1. Enable GPIOD clock
-2. Configure PD12 as output
-3. Loop forever, toggling PD12 and delaying
 
 ## What I Learned
-**The complex difference between AVR and ARM**: During this project, I learned first how to program a bare-metal function on the STM32 board. Unlike ARM, a lot needs to be done manual at first before you can write you main.c program. There is no library you can include at the top of main.c that does this for you like in AVR. You need to provide your own linker.ld and startup.s files as well as defining your own macros for the register's memory addresses. ARM makes you dig deep into the reference manual to find starting memory location of the main registers and calculate the offsets of each specific bit to get the right address to modify. 
 
-**Peripherals need clocks enabled**: On STM32, GPIO ports are off by default. You must enable the clock in RCC_AHB1ENR before the port responds. This tripped me up at first—on AVR, ports are always available.
+**Why abstraction matters:** Raw register access works, but it's error-prone and hard to read. A simple function like `gpio_init(GPIOD, 14, GPIO_MODE_OUTPUT)` is self-documenting. Six months from now, I'll understand what that line does without checking the reference manual.
 
-**The vector table**: The Cortex-M4 boot process relies on a vector table at 0x08000000. The first word is the stack pointer, the second is the reset handler address. Understanding this explains why startup.s and linker.ld must work together.
+**Register structs:** Mapping a struct to a peripheral's register block is elegant. The compiler handles offset math, and access looks clean: `GPIOD->MODER` instead of `*(volatile uint32_t *)0x40020C00`.
 
-**Toolchain differences**: ARM uses separate tools (arm-none-eabi-gcc, arm-none-eabi-as, arm-none-eabi-ld) and requires -nostdlib since we have no standard library. The output is .bin instead of .hex.
+**Design tradeoffs:** There's no single "correct" API design. The choice depends on what you value—simplicity, explicitness, or safety. I chose explicit control.
+
+**This is how real drivers work:** ST's HAL, CMSIS, and other vendor libraries use these same patterns—register structs, clean APIs, clear-then-set. Building my own taught me what those libraries do under the hood.
 
 ## Resources
-- [STM32F407 Reference Manual](https://www.st.com/resource/en/reference_manual/rm0090-stm32f405415-stm32f407417-stm32f427437-and-stm32f429439-advanced-armbased-32bit-mcus-stmicroelectronics.pdf)
+- [STM32F407 Reference Manual](https://www.st.com/resource/en/reference_manual/rm0090-stm32f405415-stm32f407417-stm32f427437-and-stm32f429439-advanced-armbased-32bit-mcus-stmicroelectronics.pdf) — GPIO registers in Section 8
 - [STM32F407G-DISC1 User Manual](https://www.st.com/resource/en/user_manual/um1472-discovery-kit-with-stm32f407vg-mcu-stmicroelectronics.pdf)
