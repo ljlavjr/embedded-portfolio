@@ -35,3 +35,8 @@ jobs:
         run: |
           cd 05-stm32-bare-metal
           make clean && make
+      
+      - name: Build 06-custom-hal
+        run: |
+          cd 06-custom-hal
+          make clean && make

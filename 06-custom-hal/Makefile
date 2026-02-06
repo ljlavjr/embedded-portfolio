@@ -17,23 +17,28 @@ OBJCOPY = arm-none-eabi-objcopy	# Converts ELF to binary
 # -Wall -Os: 	Same as AVR, all warnings, optimize for size
 # -nostdlib: 	Do not link standard C library. No printf, no malloc.
 # -T linker.ld:	Use our custom linker script (tells linker memory layout)
-CFLAGS = -Wall -Os $(MFLAGS) -nostdlib
+CFLAGS = -Wall -Os $(MFLAGS) -nostdlib -I include -I include/hal
 LDFLAGS = -T linker.ld -nostdlib
 
 # Files
 all: main.bin
 
 # Assemble the startup code. Runs before main()
-startup.o: startup.s 
-	$(AS) $(MFLAGS) startup.s -o startup.o
+startup.o: src/startup.s 
+	$(AS) $(MFLAGS) src/startup.s -o startup.o
 
-# Compile C code to object file. Same as AVR
-main.o: main.c
-	$(CC) $(CFLAGS) -c main.c -o main.o
+gpio.o: src/hal/gpio.c include/hal/gpio.h include/stm32f407.h
+	$(CC) $(CFLAGS) -c src/hal/gpio.c -o gpio.o
+
+#uart.o: src/hal/uart.c include/hal/uart.h
+#	$(CC) $(CFLAGS) -c src/hal/uart.c -o uart.o
+
+main.o: src/main.c
+	$(CC) $(CFLAGS) -c src/main.c -o main.o
 
 # Link everything together using our linker script
-main.elf: startup.o main.o 
-	$(CC) $(MFLAGS) $(LDFLAGS) startup.o main.o -o main.elf 
+main.elf: startup.o main.o gpio.o
+	$(CC) $(MFLAGS) $(LDFLAGS) startup.o main.o gpio.o -o main.elf 
 
 # Convert ELF to raw binary. STM32 flash tools want .bin, not .hex like AVR
 main.bin: main.elf
