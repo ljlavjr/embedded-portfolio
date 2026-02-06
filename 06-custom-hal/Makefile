@@ -37,8 +37,8 @@ main.o: src/main.c include/hal/gpio.h
 	$(CC) $(CFLAGS) -c src/main.c -o main.o
 
 # Link everything together using our linker script
-main.elf: startup.o main.o gpio.o
-	$(CC) $(MFLAGS) $(LDFLAGS) startup.o main.o gpio.o -o main.elf 
+main.elf: startup.o main.o gpio.o uart.o
+	$(CC) $(MFLAGS) $(LDFLAGS) startup.o main.o gpio.o uart.o -o main.elf 
 
 # Convert ELF to raw binary. STM32 flash tools want .bin, not .hex like AVR
 main.bin: main.elf
