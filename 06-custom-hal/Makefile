@@ -30,8 +30,8 @@ startup.o: src/startup.s
 gpio.o: src/hal/gpio.c include/hal/gpio.h include/stm32f407.h
 	$(CC) $(CFLAGS) -c src/hal/gpio.c -o gpio.o
 
-#uart.o: src/hal/uart.c include/hal/uart.h
-#	$(CC) $(CFLAGS) -c src/hal/uart.c -o uart.o
+uart.o: src/hal/uart.c include/hal/uart.h
+	$(CC) $(CFLAGS) -c src/hal/uart.c -o uart.o
 
 main.o: src/main.c include/hal/gpio.h
 	$(CC) $(CFLAGS) -c src/main.c -o main.o

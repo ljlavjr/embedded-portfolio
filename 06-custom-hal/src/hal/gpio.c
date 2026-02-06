@@ -27,6 +27,14 @@ void gpio_set_pull(GPIO_TypeDef *port, uint8_t pin, GPIO_PULL_UD pull) {
     port->PUPDR |= (pull << (pin * 2));
 }
 
+void gpio_set_alt_func(GPIO_TypeDef *port, uint8_t pin, uint8_t function) {
+    uint32_t index = pin / 8;       // AFR[0] or AFR[1]
+    uint32_t shift = (pin % 8) * 4; // 4 bits per pin
+
+    port->AFR[index] &= ~(0xF << shift);
+    port->AFR[index] |= ((function & 0xF) << shift);
+}
+
 void write_pin(GPIO_TypeDef *port, uint8_t pin, uint32_t value) {
     // We use BSRR bc it does not need read-modify-write cycle.
     // Each bit is an action not state. Atmoic and preferred over ODR

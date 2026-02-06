@@ -31,11 +31,21 @@ typedef enum {
 #define HIGH 1
 #define LOW 0
 
+#define PA2 2   // GPIOA Pin 2
+#define PA3 3   // GPIOA Pin 3
+
+
+#define PD12 12 // GPIOD Pin 12 (Green LED)
+#define PD13 13 // GPIOD Pin 13 (Orange LED)
+#define PD14 14 // GPIOD Pin 14 (Red LED)
+#define PD15 15 // GPIOD Pin 15 (Blue LED)
+
 void rcc_gpio_clock_enable(GPIO_TypeDef *port);
 void gpio_init(GPIO_TypeDef *port, uint8_t pin, GPIO_MODE mode);
 void gpio_set_otype(GPIO_TypeDef *port, uint8_t pin, GPIO_OUTPUT_TYPE otype);
 void gpio_set_speed(GPIO_TypeDef *port, uint8_t pin, GPIO_SPEED speed);
 void gpio_set_pull(GPIO_TypeDef *port, uint8_t pin, GPIO_PULL_UD pull);
+void gpio_set_alt_func(GPIO_TypeDef *port, uint8_t pin, uint8_t function);
 void write_pin(GPIO_TypeDef *port, uint8_t pin, uint32_t value);
 uint8_t read_pin(GPIO_TypeDef *port, uint8_t pin);
 void toggle_pin(GPIO_TypeDef *port, uint8_t pin);
