@@ -1,0 +1,92 @@
+#ifndef STM32F407_H
+#define STM32F407_H
+
+#include <stdint.h>
+typedef struct {
+    volatile uint32_t MODER;    // Offset 0x00
+    volatile uint32_t OTYPER;   // Offset 0x04
+    volatile uint32_t OSPEEDR;  // Offset 0x08
+    volatile uint32_t PUPDR;    // Offset 0x0C
+    volatile uint32_t IDR;      // Offset 0x10
+    volatile uint32_t ODR;      // Offset 0x14
+    volatile uint32_t BSRR;     // Offset 0x18
+    volatile uint32_t LCKR;     // Offset 0x1C
+    volatile uint32_t AFR[2];   // Offset 0x20-0x24
+} GPIO_TypeDef;
+
+typedef struct {
+    volatile uint32_t CR;           // Offset 0x00
+    volatile uint32_t PLLCFGR;      // Offset 0x04
+    volatile uint32_t CFGR;         // Offset 0x08
+    volatile uint32_t CIR;          // Offset 0x0C
+    volatile uint32_t AHB1RSTR;     // Offset 0x10
+    volatile uint32_t AHB2RSTR;     // Offset 0x14
+    volatile uint32_t AHB3RSTR;     // Offset 0x18
+    volatile uint32_t FILL_0;       // Reserved
+    volatile uint32_t APB1RSTR;     // Offset 0x20
+    volatile uint32_t APB2RSTR;     // Offset 0x24
+    volatile uint32_t FILL_1[2];    // Reserved
+    volatile uint32_t AHB1ENR;      // Offset 0x30
+    volatile uint32_t AHB2ENR;      // Offset 0x34
+    volatile uint32_t AHB3ENR;      // Offset 0x38
+    volatile uint32_t FILL_2;       // Reserved
+    volatile uint32_t APB1ENR;      // Offset 0x40
+    volatile uint32_t APB2ENR;      // Offset 0x44
+    volatile uint32_t FILL_3[2];    // Reserved
+    volatile uint32_t AHB1LPENR;    // Offset 0x50
+    volatile uint32_t AHB2LPENR;    // Offset 0x54
+    volatile uint32_t AHB3LPENR;    // Offset 0x58
+    volatile uint32_t FILL_4;       // Reserved
+    volatile uint32_t APB1LPENR;    // Offset 0x60
+    volatile uint32_t APB2LPENR;    // Offset 0x64
+    volatile uint32_t FILL_5[2];    // Reserved
+    volatile uint32_t BDCR;         // Offset 0x70
+    volatile uint32_t CSR;          // Offset 0x74
+    volatile uint32_t FILL_6[2];    // Reserved
+    volatile uint32_t SSCGR;        // Offset 0x80
+    volatile uint32_t PLLI2SCFGR;   // Offset 0x84
+    volatile uint32_t PLLSAICFGR;   // Offset 0x88
+    volatile uint32_t DCKCFGR;      // Offset 0x8C
+} RCC_TypeDef;
+
+typedef struct {
+    volatile uint32_t SR;   // Offset 0x00
+    volatile uint32_t DR;   // Offset 0x04
+    volatile uint32_t BRR;  // Offset 0x08
+    volatile uint32_t CR1;  // Offset 0x0C
+    volatile uint32_t CR2;  // Offset 0x10
+    volatile uint32_t CR3;  // Offset 0x14
+    volatile uint32_t GTPR; // Offset 0x18
+} USART_TypeDef;
+
+typedef struct {
+    volatile uint32_t CR1;      // Offset 0x00
+    volatile uint32_t CR2;      // Offset 0x04
+    volatile uint32_t SR;       // Offset 0x08
+    volatile uint32_t DR;       // Offset 0x0C
+    volatile uint32_t CRCPR;    // Offset 0x10
+    volatile uint32_t RXCRCR;   // Offset 0x14
+    volatile uint32_t TXCRCR;   // Offset 0x18
+    volatile uint32_t I2SCFGR;  // Offset 0x1C
+    volatile uint32_t I2SPR;    // Offset 0x20
+} SPI_TypeDef;
+
+#define RCC ((RCC_TypeDef *) 0x40023800)
+
+#define GPIOA ((GPIO_TypeDef *) 0x40020000)
+#define GPIOB ((GPIO_TypeDef *) 0x40020400)
+#define GPIOC ((GPIO_TypeDef *) 0x40020800)
+#define GPIOD ((GPIO_TypeDef *) 0x40020C00)
+#define GPIOE ((GPIO_TypeDef *) 0x40021000)
+#define GPIOF ((GPIO_TypeDef *) 0x40021400)
+#define GPIOG ((GPIO_TypeDef *) 0x40021800)
+#define GPIOH ((GPIO_TypeDef *) 0x40021C00)
+#define GPIOI ((GPIO_TypeDef *) 0x40022000)
+//#define GPIOJ ((GPIO_TypeDef *) 0x40022400)
+//#define GPIOK ((GPIO_TypeDef *) 0x40022800)
+
+#define SPI1 ((SPI_TypeDef *) 0x40013000)
+
+#define USART2 ((USART_TypeDef *) 0x40004400)
+
+#endif
