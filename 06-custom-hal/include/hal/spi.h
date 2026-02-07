@@ -8,6 +8,8 @@
 #define CPOL 1  // Clock Polarity
 #define MSTR 2  // Master Selection
 #define SPE 6   // SPI Enable
+#define SSI 8   // Software Slave Management
+#define SSM 9   // Internal Slave Select
 
 #define BR_DIV8 (0b010 << 3)
 

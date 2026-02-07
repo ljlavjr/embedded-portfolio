@@ -19,7 +19,7 @@ void spi_init(void) {
     RCC->APB2ENR |= (1 << 12);  // Bit 12: SPI1 clock enable bit
 
     // Configure CR1
-    SPI1->CR1 = (1 << MSTR) | BR_DIV8 | (1 << SPE);
+    SPI1->CR1 = (1 << MSTR) | BR_DIV8 | (1 << SSI) | (1 << SSM) | (1 << SPE);
 }
 
 uint8_t spi_transfer(uint8_t data) {
