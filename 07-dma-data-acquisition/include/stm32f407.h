@@ -71,6 +71,35 @@ typedef struct {
     volatile uint32_t I2SPR;    // Offset 0x20
 } SPI_TypeDef;
 
+typedef struct {
+    volatile uint32_t SR;       // Offset 0x00
+    volatile uint32_t CR1;      // Offset 0x04
+    volatile uint32_t CR2;      // Offset 0x08
+    volatile uint32_t SMPR1;    // Offset 0x0C
+    volatile uint32_t SMPR2;    // Offset 0x10
+    volatile uint32_t JOFR1;    // Offset 0x14
+    volatile uint32_t JOFR2;    // Offset 0x18
+    volatile uint32_t JOFR3;    // Offset 0x1C
+    volatile uint32_t JOFR4;    // Offset 0x20
+    volatile uint32_t HTR;      // Offset 0x24
+    volatile uint32_t LTR;      // Offset 0x28
+    volatile uint32_t SQR1;     // Offset 0x2C
+    volatile uint32_t SQR2;     // Offset 0x30
+    volatile uint32_t SQR3;     // Offset 0x34
+    volatile uint32_t JSQR;     // Offset 0x38
+    volatile uint32_t JDR1;     // Offset 0x3C
+    volatile uint32_t JDR2;     // Offset 0x40
+    volatile uint32_t JDR3;     // Offset 0x44
+    volatile uint32_t JDR4;     // Offset 0x48
+    volatile uint32_t DR;       // Offset 0x4C
+} ADC_TypeDef;
+
+typedef struct {
+    volatile uint32_t CSR;  // Offset 0x00
+    volatile uint32_t CCR;  // Offset 0x04
+    volatile uint32_t CDR;  // Offset 0x08
+} ADC_Common_TypeDef;
+
 #define RCC ((RCC_TypeDef *) 0x40023800)
 
 #define GPIOA ((GPIO_TypeDef *) 0x40020000)
@@ -86,6 +115,9 @@ typedef struct {
 //#define GPIOK ((GPIO_TypeDef *) 0x40022800)
 
 #define SPI1 ((SPI_TypeDef *) 0x40013000)
+
+#define ADC_COMMON ((ADC_Common_TypeDef *) 0x40012300)
+#define ADC1 ((ADC_TypeDef *) 0x40012000)
 
 #define USART2 ((USART_TypeDef *) 0x40004400)
 
