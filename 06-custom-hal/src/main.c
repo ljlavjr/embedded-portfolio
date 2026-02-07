@@ -7,9 +7,16 @@ int main(void) {
     // Initialize LED
     rcc_gpio_clock_enable(GPIOD);
     gpio_init(GPIOD, PD14, GPIO_MODE_OUTPUT);
+    gpio_init(GPIOD, PD12, GPIO_MODE_OUTPUT);
 
     // Initialize UART at 9600 baud
     uart_init(9600);
+
+    // Blink green LED 3 times fast to confirm uart_init completed
+    for (int i = 0; i < 6; i++) {
+        toggle_pin(GPIOD, PD12);
+        delay(900000);
+    }
 
     // Send startup message
     uart_write_string("Project 06: UART HAL initialized\r\n");
