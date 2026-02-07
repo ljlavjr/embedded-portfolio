@@ -7,10 +7,9 @@
 #define CPHA 0  // Clock Phase
 #define CPOL 1  // Clock Polarity
 #define MSTR 2  // Master Selection
-#define BR0 3   // Baud Rate Control 0
-#define BR1 4   // Baud Rate Control 1
-#define BR2 5   // Baud Rate Control 2
 #define SPE 6   // SPI Enable
+
+#define BR_DIV8 (0b010 << 3)
 
 #define RXNE 0  // Receive Buffer Not Empty
 #define TXE 1   // Transmit Buffer Empty

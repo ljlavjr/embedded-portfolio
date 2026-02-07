@@ -33,3 +33,9 @@ char uart_read_char(void) {
     while (!(USART2->SR & (1 << RXNE))); // If nothing to read wait.
     return USART2->DR;
 }
+
+void uart_write_hex(uint8_t val) {
+    char hex[] = "0123456789ABCDEF";
+    uart_write_char(hex[(val >> 4) & 0x0F]);
+    uart_write_char(hex[val & 0x0F]);
+}
