@@ -8,6 +8,7 @@ void rcc_gpio_clock_enable(GPIO_TypeDef *port) {
 
 void gpio_init(GPIO_TypeDef *port, uint8_t pin, GPIO_MODE mode) {
     // Need to clear bits firsts then change. Standard for multi-bit fields
+    rcc_gpio_clock_enable(port);
     port->MODER &= ~(0x3 << (pin * 2));
     port->MODER |= (mode << (pin * 2));
 }

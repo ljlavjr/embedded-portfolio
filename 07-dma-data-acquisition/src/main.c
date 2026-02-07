@@ -12,7 +12,6 @@ int main(void) {
     uart_write_string("ADC Test");
 
     // Configure PA0 as analog input
-    rcc_gpio_clock_enable(GPIOA);
     gpio_init(GPIOA, 0, GPIO_MODE_AN);
 
     // Initialize ADC
