@@ -100,6 +100,25 @@ typedef struct {
     volatile uint32_t CDR;  // Offset 0x08
 } ADC_Common_TypeDef;
 
+typedef struct {
+    volatile uint32_t CR;
+    volatile uint32_t NDTR;
+    volatile uint32_t PAR;
+    volatile uint32_t M0AR;
+    volatile uint32_t M1AR;
+    volatile uint32_t FCR;
+} DMA_Stream_TypeDef;
+
+typedef struct {
+    volatile uint32_t LISR;
+    volatile uint32_t HISR;
+    volatile uint32_t LIFCR;
+    volatile uint32_t HIFCR;
+} DMA_TypeDef;
+
+#define DMA2 ((DMA_TypeDef *) 0x40026400)
+#define DMA2_Stream0 ((DMA_Stream_TypeDef *) 0x40026410)
+
 #define RCC ((RCC_TypeDef *) 0x40023800)
 
 #define GPIOA ((GPIO_TypeDef *) 0x40020000)

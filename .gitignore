@@ -2,3 +2,4 @@
 *.elf
 *.hex
 c_cpp_properties.json
+*.bin
