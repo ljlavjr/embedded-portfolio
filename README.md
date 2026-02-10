@@ -19,9 +19,9 @@ This is a collection of projects that build from the "Hello World" of embedded p
 ### Phase 2: STM32 Bare-Metal
 | # | Project | Platform | Skills | Status |
 |---|---------|----------|--------|--------|
-| 05 | Bare-Metal Startup | STM32F407 | ARM Startup, Linker Scripts, Vector Table | In Progress |
-| 06 | Custom HAL | STM32F407 | GPIO, UART, SPI Drivers, Abstraction | Planned |
-| 07 | DMA Data Acquisition | STM32F407 | DMA, ADC, Double Buffering | Planned |
+| 05 | Bare-Metal Startup | STM32F407 | ARM Startup, Linker Scripts, Vector Table | Complete |
+| 06 | Custom HAL | STM32F407 | GPIO, UART, SPI Drivers, Abstraction | Complete |
+| 07 | DMA Data Acquisition | STM32F407 | DMA, ADC, Double Buffering | In Progress |
 
 ### Phase 3: RTOS
 | # | Project | Platform | Skills | Status |

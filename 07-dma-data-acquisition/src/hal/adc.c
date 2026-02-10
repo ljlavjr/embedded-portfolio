@@ -17,6 +17,30 @@ void adc_init(void) {
     ADC1->CR2 |= (1 << ADON);
 }
 
+void adc_init_dma(uint8_t channel) {
+    // Enable ADC1 Clock
+    RCC->APB2ENR |= (1 << 8);
+
+    // Set Prescaler
+    ADC_COMMON->CCR |= (0b01 << 16);
+
+    // Configure Sample Time
+    ADC1->SMPR2 |= (0b011 << 0);
+
+    //Select Channel
+    ADC1->SQR3 = channel;
+
+    // Enable continuous mode, enable DMA mode, DMA disable selection
+    ADC1->CR2 |= (1 << 1) | (1 << 8) | (1 << 9);
+
+    // Turn on ADC
+    ADC1->CR2 |= (1 << ADON);
+}
+
+void adc_start(void) {
+    ADC1->CR2 |= (1 << SWSTART);
+}
+
 uint16_t adc_read(uint8_t channel) {
     // Select Channel
     ADC1->SQR3 = channel;
