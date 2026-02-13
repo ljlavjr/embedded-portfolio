@@ -1,10 +1,11 @@
 # STM32F407VG on Discovery board
 # MCU: cpu core inside the board. ARM uses the core type. AVR uses exact chip
 MCU = cortex-m4
-# -mcpu=$(MCU): 	Tells compiler which CPU instruction set to use
-# -mthumb: 			Use Thumb instruction set (16-bit compressed instructions, standard for Cortex-M)
-# -mfloat-abi=soft:	Use software floating point. The F407 has a hardware FPU, but we you software for now 
-MFLAGS = -mcpu=$(MCU) -mthumb -mfloat-abi=soft
+# -mcpu=$(MCU): 		Tells compiler which CPU instruction set to use
+# -mthumb: 				Use Thumb instruction set (16-bit compressed instructions, standard for Cortex-M)
+# -mfloat-abi=hard:		Use hardware floating point.
+# -mfpu=fpv4-sp-d16:	FPv4 floating point, single precision only, 16 double-word registers
+MFLAGS = -mcpu=$(MCU) -mthumb -mfloat-abi=hard -mfpu=fpv4-sp-d16
 
 # Toolchain
 # arm-none-eabi:	"ARM, no operating sytstem, embedded ABI(application binary interface)"
