@@ -27,13 +27,13 @@ all: main.bin
 startup.o: startup.s 
 	$(AS) $(MFLAGS) startup.s -o startup.o
 
-gpio.o: src/hal/gpio.c include/hal/gpio.h include/stm32f407.h
-	$(CC) $(CFLAGS) -c src/hal/gpio.c -o gpio.o
+gpio.o: drivers/gpio.c include/gpio.h include/stm32f407.h
+	$(CC) $(CFLAGS) -c drivers/gpio.c -o gpio.o
 
-uart.o: src/hal/uart.c include/hal/uart.h
-	$(CC) $(CFLAGS) -c src/hal/uart.c -o uart.o
+uart.o: drivers/uart.c include/uart.h
+	$(CC) $(CFLAGS) -c drivers/uart.c -o uart.o
 
-main.o: src/main.c include/hal/gpio.h
+main.o: src/main.c include/gpio.h
 	$(CC) $(CFLAGS) -c src/main.c -o main.o
 
 tasks.o: freertos/tasks.c
