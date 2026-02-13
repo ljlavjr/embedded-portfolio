@@ -40,3 +40,13 @@ jobs:
         run: |
           cd 06-custom-hal
           make clean && make
+
+      - name: Build 07-dma-data-acquisition
+        run: |
+          cd 07-dma-acquisition
+          make clean && make
+
+      - name: Build 08-freeRTOS-basics
+        run: |
+          cd 08-freeRTOS-basics
+          make clean && make
