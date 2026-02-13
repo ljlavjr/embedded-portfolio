@@ -50,3 +50,8 @@ jobs:
         run: |
           cd 08-freeRTOS-basics
           make clean && make
+
+      - name: Build 09-inter-task-comm
+        run: |
+          cd 09-inter-task-comm
+          make clean && make
