@@ -53,8 +53,8 @@ heap_4.o: freertos/portable/MemMang/heap_4.c
 	$(CC) $(CFLAGS) -c freertos/portable/MemMang/heap_4.c -o heap_4.o
 
 # Link everything together using our linker script
-main.elf: startup.o main.o gpio.o uart.o tasks.o queue.o list.o port.o head_4.o
-	$(CC) $(MFLAGS) $(LDFLAGS) startup.o main.o gpio.o uart.o tasks.o queue.o list.o port.o head_4.o -o main.elf 
+main.elf: startup.o main.o gpio.o uart.o tasks.o queue.o list.o port.o heap_4.o
+	$(CC) $(MFLAGS) $(LDFLAGS) startup.o main.o gpio.o uart.o tasks.o queue.o list.o port.o heap_4.o -o main.elf 
 
 # Convert ELF to raw binary. STM32 flash tools want .bin, not .hex like AVR
 main.bin: main.elf
