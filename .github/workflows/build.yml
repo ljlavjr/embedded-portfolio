@@ -43,7 +43,7 @@ jobs:
 
       - name: Build 07-dma-data-acquisition
         run: |
-          cd 07-dma-acquisition
+          cd 07-dma-data-acquisition
           make clean && make
 
       - name: Build 08-freeRTOS-basics
