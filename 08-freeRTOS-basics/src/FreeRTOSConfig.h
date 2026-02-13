@@ -15,6 +15,8 @@
 #define configUSE_16_BIT_TICKS                  0
 #define configMAX_SYSCALL_INTERRUPT_PRIORITY    191
 
+#define INCLUDE_vTaskDelay                      1
+
 #define vPortSVCHandler             SVC_Handler
 #define xPortPendSVHandler          PendSV_Handler
 #define xPortSysTickHandler         SysTick_Handler

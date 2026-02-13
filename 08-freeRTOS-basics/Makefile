@@ -15,11 +15,12 @@ LD = arm-none-eabi-ld			# Linker
 OBJCOPY = arm-none-eabi-objcopy	# Converts ELF to binary
 
 # Flags
-# -Wall -Os: 	Same as AVR, all warnings, optimize for size
-# -nostdlib: 	Do not link standard C library. No printf, no malloc.
-# -T linker.ld:	Use our custom linker script (tells linker memory layout)
-CFLAGS = -Wall -Os $(MFLAGS) -nostdlib -I include -I include/hal -I freertos/include -I freertos/portable/GCC/ARM_CM4F -I src
-LDFLAGS = -T linker.ld -nostdlib
+# -Wall -Os: 						Same as AVR, all warnings, optimize for size
+# -nostartfiles --specs=nano.specs:	Skips default setup. Gives you a tiny embedded-friendly version of libs
+# -I ...:							Include paths
+# -T linker.ld:						Use our custom linker script (tells linker memory layout)
+CFLAGS = -Wall -Os $(MFLAGS) -nostartfiles --specs=nano.specs -I include -I include/hal -I freertos/include -I freertos/portable/GCC/ARM_CM4F -I src
+LDFLAGS = -T linker.ld -nostartfiles --specs=nano.specs
 
 # Files
 all: main.bin
@@ -53,8 +54,9 @@ heap_4.o: freertos/portable/MemMang/heap_4.c
 	$(CC) $(CFLAGS) -c freertos/portable/MemMang/heap_4.c -o heap_4.o
 
 # Link everything together using our linker script
+# -lnosys:	provides stubs for OS calls you do not have
 main.elf: startup.o main.o gpio.o uart.o tasks.o queue.o list.o port.o heap_4.o
-	$(CC) $(MFLAGS) $(LDFLAGS) startup.o main.o gpio.o uart.o tasks.o queue.o list.o port.o heap_4.o -o main.elf 
+	$(CC) $(MFLAGS) $(LDFLAGS) startup.o main.o gpio.o uart.o tasks.o queue.o list.o port.o heap_4.o -lc -lnosys -lgcc -o main.elf 
 
 # Convert ELF to raw binary. STM32 flash tools want .bin, not .hex like AVR
 main.bin: main.elf
