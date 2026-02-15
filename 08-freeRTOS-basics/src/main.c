@@ -49,6 +49,7 @@ int main(void) {
                 2,
                 NULL
     );
+    write_pin(GPIOD, 12, HIGH);
     vTaskStartScheduler();
     return 0;
 }
