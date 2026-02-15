@@ -7,9 +7,23 @@
     .global Reset_Handler   /* Make visible to linker .global = Export symbol so linker can find it */
 
 /* Vector Table - must be at 0x08000000 */
-    .section .isr_vector, "a"   /* Put this in .isr_vector section, "a" = allocatable */
-    .word _estack               /* Initial stack pointer (from linker script) .word = 4 byte value */
-    .word Reset_Handler         /* Reset handler address */
+    .section .isr_vector, "a"
+    .word _estack               /* 0: Initial stack pointer */
+    .word Reset_Handler         /* 1: Reset */
+    .word 0                     /* 2: NMI */
+    .word HardFault_Handler                     /* 3: HardFault */
+    .word 0                     /* 4: MemManage */
+    .word 0                     /* 5: BusFault */
+    .word 0                     /* 6: UsageFault */
+    .word 0                     /* 7: Reserved */
+    .word 0                     /* 8: Reserved */
+    .word 0                     /* 9: Reserved */
+    .word 0                     /* 10: Reserved */
+    .word SVC_Handler           /* 11: SVCall */
+    .word 0                     /* 12: Debug Monitor */
+    .word 0                     /* 13: Reserved */
+    .word PendSV_Handler        /* 14: PendSV */
+    .word SysTick_Handler       /* 15: SysTick */
 
 /* Reset Handler - runs at boot */
     .section .text
@@ -40,6 +54,16 @@ zero_loop:
     str r2, [r0], #4        /* Store zero, increment ponter */
     b zero_loop             /* Loop */
 
+    /* Enable FPU - required for -mfloat-abi=hard */
+    /* Set CP10 and CP11 to full access in CPACR */
+enable_fpu:
+    ldr r0, =0xE000ED88       /* SCB->CPACR address */
+    ldr r1, [r0]
+    orr r1, r1, #(0xF << 20)  /* Enable CP10 and CP11 (bits 20-23) */
+    str r1, [r0]
+    dsb                        /* Data sync barrier */
+    isb                        /* Instruction sync barrier */
+
     /* Call main */
 call_main:
     bl main                 /* Branch with link to main()  (call function, save return address) */
@@ -48,3 +72,10 @@ call_main:
 hang:
     b hang
     
+    .type HardFault_Handler, %function
+    .global HardFault_Handler
+HardFault_Handler:
+    ldr r0, =0x40020C18
+    ldr r1, =0x00008000
+    str r1, [r0]
+    b HardFault_Handler
