@@ -41,6 +41,14 @@ int main(void)
     // semaphore = xSemaphoreCreateBinary();
     // xSemaphoreGive(semaphore);
     semaphore = xSemaphoreCreateMutex();
+    if (semaphore == NULL) {
+        // Creation failed - blink green rapidly and halt
+        while (1)
+        {
+            toggle_pin(GPIOD, PD12);
+            for (volatile uint32_t i = 0; i < 500000; i++);
+        }
+    }
 
     /* ---- Create Tasks ---- */
     xTaskCreate(
