@@ -21,14 +21,14 @@ This is a collection of projects that build from the "Hello World" of embedded p
 |---|---------|----------|--------|--------|
 | 05 | Bare-Metal Startup | STM32F407 | ARM Startup, Linker Scripts, Vector Table | Complete |
 | 06 | Custom HAL | STM32F407 | GPIO, UART, SPI Drivers, Abstraction | Complete |
-| 07 | DMA Data Acquisition | STM32F407 | DMA, ADC, Double Buffering | In Progress |
+| 07 | DMA Data Acquisition | STM32F407 | DMA, ADC, Double Buffering | Complete |
 
 ### Phase 3: RTOS
 | # | Project | Platform | Skills | Status |
 |---|---------|----------|--------|--------|
-| 08 | FreeRTOS Basics | STM32F407 | Tasks, Priorities, Scheduler | Planned |
-| 09 | Inter-Task Communication | STM32F407 | Queues, Producer-Consumer | Planned |
-| 10 | Resource Sharing | STM32F407 | Mutexes, Semaphores, Priority Inversion | Planned |
+| 08 | FreeRTOS Basics | STM32F407 | Tasks, Priorities, Scheduler | Complete |
+| 09 | Inter-Task Communication | STM32F407 | Queues, Producer-Consumer | Complete |
+| 10 | Resource Sharing | STM32F407 | Mutexes, Semaphores, Priority Inversion | In Progress |
 | 11 | Real-Time Sensor System | STM32F407 | Multi-task Application, Timing Analysis | Planned |
 
 ### Phase 4: Automotive Protocols
