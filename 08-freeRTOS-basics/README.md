@@ -20,6 +20,7 @@ This project introduces FreeRTOS on the STM32F407. Instead of a bare-metal super
 - SysTick, PendSV, and SVC system interrupts for context switching
 - Linking with nano.specs for embedded libc (memset, memcpy)
 - Hardware FPU flags (`-mfloat-abi=hard -mfpu=fpv4-sp-d16`)
+- Why the FPU must be enabled in startup code before any FPU instructions execute
 
 ## File Structure
 ```
@@ -128,6 +129,30 @@ vTaskDelay(pdMS_TO_TICKS(500));  // Sleep for 500ms, let other tasks run
 | `configMAX_SYSCALL_INTERRUPT_PRIORITY` | 191 | Priority level 11/16. Interrupts above this are untouched by FreeRTOS |
 | `INCLUDE_vTaskDelay` | 1 | Must explicitly enable optional API functions |
 
+## Startup Code: FPU Enable (Critical Fix)
+
+The Cortex-M4F has a hardware FPU, but **it is disabled by default at reset**. When compiling with `-mfloat-abi=hard`, the compiler and the FreeRTOS CM4F port both emit FPU instructions. If the FPU is not enabled before these instructions execute, the CPU triggers a UsageFault, which escalates to a HardFault (since the UsageFault vector is not populated).
+
+This must be added to `startup.s` before calling `main()`:
+```asm
+enable_fpu:
+    ldr r0, =0xE000ED88       /* SCB->CPACR register */
+    ldr r1, [r0]
+    orr r1, r1, #(0xF << 20)  /* Set CP10 and CP11 to full access (bits 20-23) */
+    str r1, [r0]
+    dsb                        /* Data sync barrier - ensure write completes */
+    isb                        /* Instruction sync barrier - flush pipeline */
+```
+
+`0xE000ED88` is the Coprocessor Access Control Register (CPACR). Bits 20-23 control access to coprocessors CP10 and CP11, which together form the FPU. Setting them to `11` (full access) enables FPU instructions in both privileged and unprivileged mode.
+
+**Symptom when missing:** The scheduler appears to start (SVC fires successfully), but the first context switch triggers a HardFault because PendSV tries to save/restore FPU registers (S0-S15, FPSCR) that the CPU won't allow access to.
+
+### Debugging Approach Used
+1. **LED-based fault detection:** HardFault_Handler lights PD15 (blue). Seeing blue LED = confirmed HardFault, not a logic bug.
+2. **Vector table verification:** Used `arm-none-eabi-nm` to confirm SVC_Handler, PendSV_Handler, and SysTick_Handler were linked at valid addresses, then `arm-none-eabi-objdump -s -j .isr_vector` to verify the vector table entries pointed to those addresses with the thumb bit set.
+3. **Process of elimination:** Vector table was correct, scheduler was starting (green LED turned on before `vTaskStartScheduler()`), but HardFault fired immediately after → the crash happens during the first context switch → FPU access was the cause.
+
 ## Build & Flash
 ```bash
 make clean && make
@@ -176,6 +201,26 @@ Several changes were needed to support FreeRTOS:
 **vTaskDelay is not a busy wait:** This is the key insight. When a task delays, the CPU runs other tasks. In a super-loop, a delay wastes every cycle. This is why RTOS makes multi-tasking practical.
 
 **Integration is the hard part:** Writing the two tasks took 5 minutes. Getting FreeRTOS to compile with my existing project — matching include paths, fixing linker flags, adding missing config defines, resolving the FPU requirement — that's where the real debugging happened. This is a skill that matters in industry.
+
+**The FPU must be explicitly enabled in startup code:** The Cortex-M4F FPU is off at reset. If you compile with hard float but forget to enable the FPU before the first FPU instruction runs, you get a HardFault with no obvious cause. Vendor-provided startup files (like ST's) do this automatically, but when writing your own startup from scratch, it's easy to miss. This is the kind of bug where having a HardFault handler with a visible indicator (like an LED) saves hours of confusion.
+
+**Verify the vector table, not just the symbols:** Confirming that handler symbols exist in the ELF (`arm-none-eabi-nm`) is only half the story. You also need to verify that the vector table entries actually point to those addresses (`arm-none-eabi-objdump -s -j .isr_vector`), with the Thumb bit set (bit 0 = 1). A mismatch between symbol addresses and vector table entries means the CPU will jump to the wrong place on an interrupt.
+
+## Useful Debug Commands
+```bash
+# Check that FreeRTOS handlers are linked
+arm-none-eabi-nm main.elf | grep -i "svc\|pendsv\|systick"
+
+# Dump vector table to verify entries match handler addresses (little-endian, thumb bit set)
+arm-none-eabi-objdump -s -j .isr_vector main.elf
+
+# Vector table offsets to check:
+#   0x00 = Initial SP (should be top of RAM)
+#   0x04 = Reset_Handler
+#   0x2C = SVC_Handler
+#   0x38 = PendSV_Handler
+#   0x3C = SysTick_Handler
+```
 
 ## Resources
 - [FreeRTOS Documentation](https://www.freertos.org/Documentation/RTOS_book.html)
