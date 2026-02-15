@@ -39,14 +39,14 @@ int main(void) {
     uart_init(9600);
     xTaskCreate(vBlinkTask,     // pointer to task function
                 "Blink",        // name string (just for debugging)
-                128,            // stack size in words
+                256,            // stack size in words
                 NULL,           // parameter to pass to the task
                 1,              // priority
                 NULL            // task handle
     );
     xTaskCreate(vUartTask,
                 "Uart",
-                128,
+                256,
                 NULL,
                 2,
                 NULL

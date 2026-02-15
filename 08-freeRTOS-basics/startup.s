@@ -54,6 +54,16 @@ zero_loop:
     str r2, [r0], #4        /* Store zero, increment ponter */
     b zero_loop             /* Loop */
 
+    /* Enable FPU - required for -mfloat-abi=hard */
+    /* Set CP10 and CP11 to full access in CPACR */
+enable_fpu:
+    ldr r0, =0xE000ED88       /* SCB->CPACR address */
+    ldr r1, [r0]
+    orr r1, r1, #(0xF << 20)  /* Enable CP10 and CP11 (bits 20-23) */
+    str r1, [r0]
+    dsb                        /* Data sync barrier */
+    isb                        /* Instruction sync barrier */
+
     /* Call main */
 call_main:
     bl main                 /* Branch with link to main()  (call function, save return address) */
