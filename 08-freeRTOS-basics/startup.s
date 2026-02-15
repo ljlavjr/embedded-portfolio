@@ -7,9 +7,23 @@
     .global Reset_Handler   /* Make visible to linker .global = Export symbol so linker can find it */
 
 /* Vector Table - must be at 0x08000000 */
-    .section .isr_vector, "a"   /* Put this in .isr_vector section, "a" = allocatable */
-    .word _estack               /* Initial stack pointer (from linker script) .word = 4 byte value */
-    .word Reset_Handler         /* Reset handler address */
+    .section .isr_vector, "a"
+    .word _estack               /* 0: Initial stack pointer */
+    .word Reset_Handler         /* 1: Reset */
+    .word 0                     /* 2: NMI */
+    .word 0                     /* 3: HardFault */
+    .word 0                     /* 4: MemManage */
+    .word 0                     /* 5: BusFault */
+    .word 0                     /* 6: UsageFault */
+    .word 0                     /* 7: Reserved */
+    .word 0                     /* 8: Reserved */
+    .word 0                     /* 9: Reserved */
+    .word 0                     /* 10: Reserved */
+    .word SVC_Handler           /* 11: SVCall */
+    .word 0                     /* 12: Debug Monitor */
+    .word 0                     /* 13: Reserved */
+    .word PendSV_Handler        /* 14: PendSV */
+    .word SysTick_Handler       /* 15: SysTick */
 
 /* Reset Handler - runs at boot */
     .section .text
