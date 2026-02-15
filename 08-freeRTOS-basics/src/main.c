@@ -51,5 +51,7 @@ int main(void) {
     );
     write_pin(GPIOD, 12, HIGH);
     vTaskStartScheduler();
+    gpio_init(GPIOD, 14, GPIO_MODE_OUTPUT);
+    write_pin(GPIOD, 14, HIGH);
     return 0;
 }
