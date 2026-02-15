@@ -15,9 +15,8 @@
  * This is NOT a busy-wait - the scheduler actually switches to other tasks. */
 void vBlinkTask(void *pvParameters) {
     for (;;) {
-        // toggle_pin(GPIOD, 12);
-        // vTaskDelay(pdMS_TO_TICKS(500));
-        write_pin(GPIOD, 14, HIGH);
+        toggle_pin(GPIOD, 12);
+        vTaskDelay(pdMS_TO_TICKS(500));
     }
 }
 
