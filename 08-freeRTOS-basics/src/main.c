@@ -35,6 +35,8 @@ void vUartTask(void *pvParameters) {
  * vTaskStartScheduler() never returns - the RTOS owns the CPU from that point on. */
 int main(void) {
     gpio_init(GPIOD, 12, GPIO_MODE_OUTPUT);
+    gpio_init(GPIOD, 14, GPIO_MODE_OUTPUT);
+    write_pin(GPIOD, 14, HIGH);
     uart_init(9600);
     xTaskCreate(vBlinkTask,     // pointer to task function
                 "Blink",        // name string (just for debugging)
@@ -53,7 +55,5 @@ int main(void) {
     write_pin(GPIOD, 12, HIGH);
     gpio_init(GPIOD, 15, GPIO_MODE_OUTPUT);
     vTaskStartScheduler();
-    gpio_init(GPIOD, 14, GPIO_MODE_OUTPUT);
-    write_pin(GPIOD, 14, HIGH);
     return 0;
 }
