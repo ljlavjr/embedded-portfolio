@@ -38,8 +38,9 @@ int main(void)
 
 
     /* ---- Create Semaphore ---- */
-    semaphore = xSemaphoreCreateBinary();
-    xSemaphoreGive(semaphore);
+    // semaphore = xSemaphoreCreateBinary();
+    // xSemaphoreGive(semaphore);
+    semaphore = xSemaphoreCreateMutex();
 
     /* ---- Create Tasks ---- */
     xTaskCreate(
