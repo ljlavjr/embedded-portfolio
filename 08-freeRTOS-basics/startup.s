@@ -11,7 +11,7 @@
     .word _estack               /* 0: Initial stack pointer */
     .word Reset_Handler         /* 1: Reset */
     .word 0                     /* 2: NMI */
-    .word 0                     /* 3: HardFault */
+    .word HardFault_Handler                     /* 3: HardFault */
     .word 0                     /* 4: MemManage */
     .word 0                     /* 5: BusFault */
     .word 0                     /* 6: UsageFault */
@@ -62,3 +62,10 @@ call_main:
 hang:
     b hang
     
+    .type HardFault_Handler, %function
+    .global HardFault_Handler
+HardFault_Handler:
+    ldr r0, =0x40020C18
+    ldr r1, =0x00008000
+    str r1, [r0]
+    b HardFault_Handler
