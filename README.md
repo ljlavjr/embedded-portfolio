@@ -28,7 +28,7 @@ This is a collection of projects that build from the "Hello World" of embedded p
 |---|---------|----------|--------|--------|
 | 08 | FreeRTOS Basics | STM32F407 | Tasks, Priorities, Scheduler | Complete |
 | 09 | Inter-Task Communication | STM32F407 | Queues, Producer-Consumer | Complete |
-| 10 | Resource Sharing | STM32F407 | Mutexes, Semaphores, Priority Inversion | In Progress |
+| 10 | Resource Sharing | STM32F407 | Mutexes, Semaphores, Priority Inversion | Complete |
 | 11 | Real-Time Sensor System | STM32F407 | Multi-task Application, Timing Analysis | Planned |
 
 ### Phase 4: Automotive Protocols
