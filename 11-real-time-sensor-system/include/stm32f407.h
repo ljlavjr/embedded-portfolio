@@ -140,4 +140,19 @@ typedef struct {
 
 #define USART2 ((USART_TypeDef *) 0x40004400)
 
+
+// Cortex-M4 Defines
+typedef struct {
+    volatile uint32_t filler[3];
+    volatile uint32_t DEMCR;        // Debug Exception and Monitor Contorl Register
+} CoreDebug_TypeDef;
+
+typedef struct {
+    volatile uint32_t CTRL;     // Control Register - bit 0 enables (CYCCNTENA) enables cycle counter (offset 0x00)
+    volatile uint32_t CYCCNT;   // Cycle Count Register - 32-bit free-running CPU cycle counter (offset 0x04)
+} DWT_TypeDef;
+
+#define CoreDebug ((CoreDebug_TypeDef *) 0xE000EDF0)
+#define DWT ((DWT_TypeDef *) 0xE0001000)
+
 #endif

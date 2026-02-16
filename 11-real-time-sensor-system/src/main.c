@@ -1,6 +1,5 @@
 /* ============================================
- * Project 10: Resource Sharing
- * Phase 1: Binary Semaphore (shows priority inversion)
+ * Project 11: Real Time Sensor System
  * ============================================ */
 
 /* ---------------- Includes ---------------- */
@@ -8,22 +7,24 @@
 #include "FreeRTOS.h"
 #include "task.h"
 #include "gpio.h"
-#include "semphr.h"
+#include "timing.h"
+#include "uart.h"
+#include "queue.h"
 
 /* ---------------- Defines ----------------- */
-#define LOW_PRIO    1
-#define MED_PRIO    2
-#define HIG_PRIO    3
 #define STACK_SIZE  256
-#define BUSY_WAIT   2000000
 
 /* ------------ Global Handles -------------- */
-SemaphoreHandle_t semaphore;
+static TaskTiming_t fast_sensor;
+static TaskTiming_t slow_sensor;
+static TaskTiming_t processing;
+static TaskTiming_t reporter;
 
 /* ----------- Task Prototypes -------------- */
-void vTaskLow(void *pvParameters);
-void vTaskMedium(void *pvParameters);
-void vTaskHigh(void *pvParameters);
+void vTaskFastSensor(void *pvParameters);
+void vTaskSlowSensor(void *pvParameters);
+void vTaskProcessing(void *pvParameters);
+void vTaskReporter(void *pvParameters);
 
 /* ============================================
  * Main
@@ -31,48 +32,42 @@ void vTaskHigh(void *pvParameters);
 int main(void)
 {
     /* ---- Hardware Init ---- */
-    gpio_init(GPIOD, PD12, GPIO_MODE_OUTPUT);
-    gpio_init(GPIOD, PD13, GPIO_MODE_OUTPUT);
-    gpio_init(GPIOD, PD14, GPIO_MODE_OUTPUT);
-    gpio_init(GPIOD, PD15, GPIO_MODE_OUTPUT);
-
-
-    /* ---- Create Semaphore ---- */
-    // semaphore = xSemaphoreCreateBinary();
-    // xSemaphoreGive(semaphore);
-    semaphore = xSemaphoreCreateMutex();
-    if (semaphore == NULL) {
-        // Creation failed - blink green rapidly and halt
-        while (1)
-        {
-            toggle_pin(GPIOD, PD12);
-            for (volatile uint32_t i = 0; i < 500000; i++);
-        }
-    }
+    timing_init();
 
     /* ---- Create Tasks ---- */
     xTaskCreate(
-        vTaskLow,
-        "Low",
+        vTaskFastSensor,
+        "Fast Sensor",
         STACK_SIZE,
         NULL,
-        LOW_PRIO,
+        4,
         NULL
     );
-     xTaskCreate(
-        vTaskMedium,
-        "Medium",
+
+    xTaskCreate(
+        vTaskSlowSensor,
+        "Slow Sensor",
         STACK_SIZE,
         NULL,
-        MED_PRIO,
+        3,
         NULL
     );
-     xTaskCreate(
-        vTaskHigh,
-        "High",
+
+    xTaskCreate(
+        vTaskProcessing,
+        "Processing",
         STACK_SIZE,
         NULL,
-        HIG_PRIO,
+        2,
+        NULL
+    );
+
+    xTaskCreate(
+        vTaskReporter,
+        "Reporter",
+        STACK_SIZE,
+        NULL,
+        1,
         NULL
     );
 
@@ -83,92 +78,58 @@ int main(void)
     while (1);
 }
 
-/* ============================================
- * Low Priority Task
- * - Grabs resource, holds it for a long time
- * ============================================ */
-void vTaskLow(void *pvParameters)
-{
-    /* Optional: Initial delay to stagger startup */
+void vTaskFastSensor(void *pvParameters) {
+    (void)pvParameters;
+    TickType_t xLastWakeTime = xTaskGetTickCount();
+    const TickType_t xPeriod = pdMS_TO_TICKS(100);
 
-    while (1)
-    {
-        /* Take the semaphore */
-        xSemaphoreTake(semaphore, portMAX_DELAY);
-
-        /* Show we're in critical section */
-        write_pin(GPIOD, PD12, HIGH);
-
-        /* Simulate long processing while holding resource */
-        for (volatile uint32_t i = 0; i < BUSY_WAIT; i++);
-
-        /* Done with critical section */
-        write_pin(GPIOD, PD12, LOW);
-
-        /* Release the semaphore */
-        xSemaphoreGive(semaphore);
-
-        /* Delay before next iteration */
-        vTaskDelay(pdMS_TO_TICKS(1000));
+    for (;;) {
+        timing_jitter(&fast_sensor, xLastWakeTime + xPeriod);
+        timing_start(&fast_sensor);
+        // Work
+        timing_stop(&fast_sensor);
+        vTaskDelayUntil(&xLastWakeTime, xPeriod);
     }
 }
 
-/* ============================================
- * Medium Priority Task  
- * - Never touches semaphore
- * - Just consumes CPU when it can run
- * ============================================ */
-void vTaskMedium(void *pvParameters)
-{
-    /* Initial delay: let Low grab semaphore first */
-    vTaskDelay(pdMS_TO_TICKS(200));
+void vTaskSlowSensor(void *pvParameters) {
+    (void)pvParameters;
+    TickType_t xLastWakeTime = xTaskGetTickCount();
+    const TickType_t xPeriod = pdMS_TO_TICKS(500);
 
-    while (1)
-    {
-        /* Show we're running */
-        write_pin(GPIOD, PD13, HIGH);
-
-        /* Simulate CPU-bound work (no semaphore!) */
-        for (volatile uint32_t i = 0; i < BUSY_WAIT; i++);
-
-        /* Done working */
-        write_pin(GPIOD, PD13, LOW);
-
-        /* Delay before next iteration */
-        vTaskDelay(pdMS_TO_TICKS(500));
+    for (;;) {
+        timing_jitter(&slow_sensor, xLastWakeTime + xPeriod);
+        timing_start(&slow_sensor);
+        // Work
+        timing_stop(&slow_sensor);
+        vTaskDelayUntil(&xLastWakeTime, xPeriod);
     }
 }
 
-/* ============================================
- * High Priority Task
- * - Needs the resource
- * - Should run first, but will block on semaphore
- * ============================================ */
-void vTaskHigh(void *pvParameters)
-{
-    /* Initial delay: let Low grab semaphore first */
-    vTaskDelay(pdMS_TO_TICKS(100));
+void vTaskProcessing(void *pvParameters) {
+    (void)pvParameters;
+    TickType_t xLastWakeTime = xTaskGetTickCount();
+    const TickType_t xPeriod = pdMS_TO_TICKS(500);
 
-    while (1)
-    {
-        /* Show we're trying to get resource */
-        write_pin(GPIOD, PD14, HIGH);
+    for (;;) {
+        timing_jitter(&processing, xLastWakeTime + xPeriod);
+        timing_start(&processing);
+        // Work
+        timing_stop(&processing);
+        vTaskDelayUntil(&xLastWakeTime, xPeriod);
+    }
+}
 
-        /* Block waiting for semaphore */
-        xSemaphoreTake(semaphore, portMAX_DELAY);
+void vTaskReporter(void *pvParameters) {
+    (void)pvParameters;
+    TickType_t xLastWakeTime = xTaskGetTickCount();
+    const TickType_t xPeriod = pdMS_TO_TICKS(1000);
 
-        /* Got it! Quick blink to show success */
-        toggle_pin(GPIOD, PD14);
-        for (volatile uint32_t i = 0; i < BUSY_WAIT/2; i++);
-        toggle_pin(GPIOD, PD14);
-
-        /* Release immediately - we don't hold long */
-        xSemaphoreGive(semaphore);
-
-        /* Red LED off - we're done */
-        write_pin(GPIOD, PD14, LOW);
-
-        /* Delay before next iteration */
-        vTaskDelay(pdMS_TO_TICKS(1000));
+    for (;;) {
+        timing_jitter(&reporter, xLastWakeTime + xPeriod);
+        timing_start(&reporter);
+        // Work
+        timing_stop(&reporter);
+        vTaskDelayUntil(&xLastWakeTime, xPeriod);
     }
 }
