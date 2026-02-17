@@ -52,6 +52,7 @@ This project brings together tasks, queues, mutexes, and filtering into a comple
 ```
 
 ## System Architecture
+```
                     ┌──────────────────┐
   ADC Ch0 ────────► │ Fast Sensor (P4) │──┐
                     │ 100ms period     │  │
@@ -66,6 +67,7 @@ This project brings together tasks, queues, mutexes, and filtering into a comple
                                                                      │ Shared Data  │──────────────┘
                                                                      │ (mutex)      │
                                                                      └──────────────┘
+                                                                     ```
 Both sensor tasks read their ADC channels at fixed intervals and push tagged readings into a single shared queue. The processing task blocks on the queue, waking each time a reading arrives. It runs the value through a per-channel moving average filter and writes the result into a shared struct protected by a mutex. Every 1000ms, the reporter task takes the mutex, reads the latest filtered values and timing stats, and sends a formatted report over UART.
 
 ## Task Design
