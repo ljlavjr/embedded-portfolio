@@ -32,11 +32,10 @@ This project brings together tasks, queues, mutexes, and filtering into a comple
 │   └── timing.c
 ├── include/
 │   ├── stm32f407.h
-│   └── hal/
-│       ├── gpio.h
-│       ├── uart.h
-│       ├── adc.h
-│       └── timing.h
+│   ├── gpio.h
+│   ├── uart.h
+│   ├── adc.h
+│   └── timing.h
 ├── freertos/
 │   ├── tasks.c
 │   ├── queue.c
