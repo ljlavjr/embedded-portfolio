@@ -31,6 +31,10 @@ void timing_stop(TaskTiming_t *t) {
 }
 
 void timing_jitter(TaskTiming_t *t, uint32_t expected_wake_tick) {
+    if (t->first_run == 0) {
+        t->first_run = 1;
+        return;
+    }
     uint32_t actual =xTaskGetTickCount();
     uint32_t jitter = actual - expected_wake_tick;
 

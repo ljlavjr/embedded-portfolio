@@ -8,6 +8,7 @@ typedef struct {
     uint32_t worst_case_cycles;
     uint32_t last_wake_tick;       // for jitter calculation
     uint32_t worst_jitter_ticks;
+    uint8_t first_run;      // flag to skip first jitter measurement
 } TaskTiming_t;
 
 void timing_init(void);
