@@ -85,6 +85,7 @@ SECTIONS
         *(.bss*)
         *(COMMON)
         _ebss = .;
+        end = .;
     } > RAM
 
     /* End of RAM - used for initial stack pointer */

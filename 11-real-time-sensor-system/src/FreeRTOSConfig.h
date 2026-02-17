@@ -41,6 +41,7 @@
 #define configUSE_MUTEXES                       1
 #define configUSE_COUNTING_SEMAPHORES           1
 #define INCLUDE_vTaskDelay                      1
+#define INCLUDE_xTaskDelayUntil                 1
 
 /* --- Interrupt Handler Remapping --- */
 /* FreeRTOS uses SVC (to start first task), PendSV (to context switch),
