@@ -35,6 +35,12 @@ gpio.o: drivers/gpio.c include/gpio.h include/stm32f407.h
 uart.o: drivers/uart.c include/uart.h
 	$(CC) $(CFLAGS) -c drivers/uart.c -o uart.o
 
+adc.o: drivers/adc.c include/adc.h
+	$(CC) $(CFLAGS) -c drivers/adc.c -o adc.o
+
+timing.o: drivers/timing.c include/timing.h
+	$(CC) $(CFLAGS) -c drivers/timing.c -o timing.o
+
 main.o: src/main.c include/gpio.h
 	$(CC) $(CFLAGS) -c src/main.c -o main.o
 
@@ -55,8 +61,8 @@ heap_4.o: freertos/portable/MemMang/heap_4.c
 
 # Link everything together using our linker script
 # -lnosys:	provides stubs for OS calls you do not have
-main.elf: startup.o main.o gpio.o uart.o tasks.o queue.o list.o port.o heap_4.o
-	$(CC) $(MFLAGS) $(LDFLAGS) startup.o main.o gpio.o uart.o tasks.o queue.o list.o port.o heap_4.o -lc -lnosys -lgcc -o main.elf 
+main.elf: startup.o main.o gpio.o uart.o tasks.o queue.o list.o port.o heap_4.o adc.o timing.o
+	$(CC) $(MFLAGS) $(LDFLAGS) startup.o main.o gpio.o uart.o adc.o timing.o tasks.o queue.o list.o port.o heap_4.o -lc -lnosys -lgcc -o main.elf 
 
 # Convert ELF to raw binary. STM32 flash tools want .bin, not .hex like AVR
 main.bin: main.elf
