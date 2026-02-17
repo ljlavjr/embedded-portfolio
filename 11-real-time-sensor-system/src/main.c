@@ -116,7 +116,7 @@ void vTaskFastSensor(void *pvParameters) {
     SensorReading_t sensorReading;
 
     for (;;) {
-        timing_jitter(&fast_sensor, xLastWakeTime + xPeriod);
+        timing_jitter(&fast_sensor, xLastWakeTime);
         timing_start(&fast_sensor);
         uint16_t raw_value = adc_read(0);
         sensorReading.channel = 0;
@@ -135,7 +135,7 @@ void vTaskSlowSensor(void *pvParameters) {
     SensorReading_t sensorReading;
 
     for (;;) {
-        timing_jitter(&slow_sensor, xLastWakeTime + xPeriod);
+        timing_jitter(&slow_sensor, xLastWakeTime);
         timing_start(&slow_sensor);
         uint16_t raw_value = adc_read(16);
         sensorReading.channel = 16;
@@ -196,7 +196,7 @@ void vTaskReporter(void *pvParameters) {
     char buf[200];
 
     for (;;) {
-        timing_jitter(&reporter, xLastWakeTime + xPeriod);
+        timing_jitter(&reporter, xLastWakeTime);
         timing_start(&reporter);
 
         xSemaphoreTake(mutex, portMAX_DELAY);
