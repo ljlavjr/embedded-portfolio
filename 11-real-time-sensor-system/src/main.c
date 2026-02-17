@@ -11,15 +11,30 @@
 #include "uart.h"
 #include "queue.h"
 #include "adc.h"
+#include "semphr.h"
+#include <stdio.h>
 
 /* ---------------- Defines ----------------- */
-#define STACK_SIZE  256
+#define STACK_SIZE  512
+#define FILTER_SIZE 8
 
 typedef struct {
     uint8_t  channel;
     uint16_t raw_value;
-    uint16_t timestamp;     // tick count when sampled
+    uint32_t timestamp;     // tick count when sampled
 } SensorReading_t;
+
+typedef struct {
+    uint16_t buffer[FILTER_SIZE];
+    uint8_t index;
+    uint8_t count;      // tracks how many samples received (up to FILTER_SIZE)
+    uint32_t sum;
+} MovingAverage_t;
+
+typedef struct {
+    uint16_t avg_ch0;
+    uint16_t avg_ch16;
+} ProcessedData_t;
 
 /* ------------ Global Handles -------------- */
 static TaskTiming_t fast_sensor;
@@ -27,6 +42,8 @@ static TaskTiming_t slow_sensor;
 static TaskTiming_t processing;
 static TaskTiming_t reporter;
 QueueHandle_t queue;
+SemaphoreHandle_t mutex;
+ProcessedData_t shared_data;
 
 /* ----------- Task Prototypes -------------- */
 void vTaskFastSensor(void *pvParameters);
@@ -41,9 +58,12 @@ int main(void)
 {
     /* ---- Hardware Init ---- */
     timing_init();
+    adc_init();
+    uart_init(9600);
 
     /* ---- Create Queue ---- */
     queue = xQueueCreate(10, sizeof(SensorReading_t));
+    mutex = xSemaphoreCreateMutex();
 
     /* ---- Create Tasks ---- */
     xTaskCreate(
@@ -129,15 +149,43 @@ void vTaskSlowSensor(void *pvParameters) {
 
 void vTaskProcessing(void *pvParameters) {
     (void)pvParameters;
-    TickType_t xLastWakeTime = xTaskGetTickCount();
-    const TickType_t xPeriod = pdMS_TO_TICKS(500);
+    SensorReading_t sensorReading;
+    MovingAverage_t filter_ch0  = {0};
+    MovingAverage_t filter_ch16 = {0};
+    MovingAverage_t *f;
+    uint16_t avg;
 
     for (;;) {
-        timing_jitter(&processing, xLastWakeTime + xPeriod);
+        xQueueReceive(queue, &sensorReading, portMAX_DELAY);
         timing_start(&processing);
-        // Work
+
+        /* Select the correct filter based on channel */
+        switch (sensorReading.channel) {
+            case 0:  f = &filter_ch0;  break;
+            case 16: f = &filter_ch16; break;
+            default: continue;
+        }
+
+        /* Update moving average */
+        f->sum -= f->buffer[f->index];
+        f->buffer[f->index] = sensorReading.raw_value;
+        f->sum += sensorReading.raw_value;
+        f->index = (f->index + 1) % FILTER_SIZE;
+        if (f->count < FILTER_SIZE) {
+            f->count++;
+        }
+        avg = f->sum / f->count;
+
+        /* Write result to shared data - hold mutex only for the write */
+        xSemaphoreTake(mutex, portMAX_DELAY);
+        if (sensorReading.channel == 0) {
+            shared_data.avg_ch0 = avg;
+        } else {
+            shared_data.avg_ch16 = avg;
+        }
+        xSemaphoreGive(mutex);
+
         timing_stop(&processing);
-        vTaskDelayUntil(&xLastWakeTime, xPeriod);
     }
 }
 
@@ -145,11 +193,36 @@ void vTaskReporter(void *pvParameters) {
     (void)pvParameters;
     TickType_t xLastWakeTime = xTaskGetTickCount();
     const TickType_t xPeriod = pdMS_TO_TICKS(1000);
+    char buf[200];
 
     for (;;) {
         timing_jitter(&reporter, xLastWakeTime + xPeriod);
         timing_start(&reporter);
-        // Work
+
+        xSemaphoreTake(mutex, portMAX_DELAY);
+        uint16_t avg0 = shared_data.avg_ch0;
+        uint16_t avg16 = shared_data.avg_ch16;
+        xSemaphoreGive(mutex);
+
+        /* Format and send sensor data */
+        snprintf(buf, sizeof(buf),
+                "CH0: %u    CH16: %u\r\n",
+                avg0, avg16);
+        uart_write_string(buf);
+
+        /* Format and send timing stats (WCET in cycles, jitter in ticks) */
+        snprintf(buf, sizeof(buf),
+            "WCET  Fast:%lu Slow:%lu Proc:%lu Rep:%lu\r\n"
+            "Jitter Fast:%lu Slow:%lu Rep:%lu\r\n\r\n",
+            fast_sensor.worst_case_cycles,
+            slow_sensor.worst_case_cycles,
+            processing.worst_case_cycles,
+            reporter.worst_case_cycles,
+            fast_sensor.worst_jitter_ticks,
+            slow_sensor.worst_jitter_ticks,
+            reporter.worst_jitter_ticks);
+        uart_write_string(buf);
+
         timing_stop(&reporter);
         vTaskDelayUntil(&xLastWakeTime, xPeriod);
     }
