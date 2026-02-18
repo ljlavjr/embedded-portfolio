@@ -55,3 +55,13 @@ jobs:
         run: |
           cd 09-inter-task-comm
           make clean && make
+
+      - name: Build 10-resource-sharing
+        run: |
+          cd 10-resource-sharing
+          make clean && make
+
+      - name: Build 11-real-time-sensor-system
+        run: |
+          cd 11-real-time-sensor-system
+          make clean && make
