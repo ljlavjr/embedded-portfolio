@@ -101,20 +101,27 @@ typedef struct {
 } ADC_Common_TypeDef;
 
 typedef struct {
-    volatile uint32_t CR;
-    volatile uint32_t NDTR;
-    volatile uint32_t PAR;
-    volatile uint32_t M0AR;
-    volatile uint32_t M1AR;
-    volatile uint32_t FCR;
+    volatile uint32_t CR;       // Offset 0x00
+    volatile uint32_t NDTR;     // Offset 0x04
+    volatile uint32_t PAR;      // Offset 0x08
+    volatile uint32_t M0AR;     // Offset 0x0C
+    volatile uint32_t M1AR;     // Offset 0x10
+    volatile uint32_t FCR;      // Offset 0x14
 } DMA_Stream_TypeDef;
 
 typedef struct {
-    volatile uint32_t LISR;
-    volatile uint32_t HISR;
-    volatile uint32_t LIFCR;
-    volatile uint32_t HIFCR;
+    volatile uint32_t LISR;     // Offset 0x00
+    volatile uint32_t HISR;     // Offset 0x04
+    volatile uint32_t LIFCR;    // Offset 0x08
+    volatile uint32_t HIFCR;    // Offset 0x0C
 } DMA_TypeDef;
+
+typedef struct {
+    volatile uint32_t KR;   // Offset 0x00
+    volatile uint32_t PR;   // Offset 0x04
+    volatile uint32_t RLR;  // Offset 0x08
+    volatile uint32_t SR;   // Offset 0x0C
+} IWDG_TypeDef;
 
 #define DMA2 ((DMA_TypeDef *) 0x40026400)
 #define DMA2_Stream0 ((DMA_Stream_TypeDef *) 0x40026410)
@@ -139,6 +146,8 @@ typedef struct {
 #define ADC1 ((ADC_TypeDef *) 0x40012000)
 
 #define USART2 ((USART_TypeDef *) 0x40004400)
+
+#define IWDG ((IWDG_TypeDef *) 0x40003000)
 
 
 // Cortex-M4 Defines

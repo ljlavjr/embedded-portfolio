@@ -1,92 +1,65 @@
 /* ============================================
- * Project 11: Real Time Sensor System
+ * Project : 
  * ============================================ */
 
 /* ---------------- Includes ---------------- */
+#include <stdio.h>
 #include "stm32f407.h"
 #include "FreeRTOS.h"
 #include "task.h"
-#include "gpio.h"
-#include "timing.h"
 #include "uart.h"
-#include "queue.h"
 #include "adc.h"
-#include "semphr.h"
-#include <stdio.h>
+#include "iwdg.h"
+#include "event_groups.h"
 
 /* ---------------- Defines ----------------- */
 #define STACK_SIZE  512
-#define FILTER_SIZE 8
-
-typedef struct {
-    uint8_t  channel;
-    uint16_t raw_value;
-    uint32_t timestamp;     // tick count when sampled
-} SensorReading_t;
-
-typedef struct {
-    uint16_t buffer[FILTER_SIZE];
-    uint8_t index;
-    uint8_t count;      // tracks how many samples received (up to FILTER_SIZE)
-    uint32_t sum;
-} MovingAverage_t;
-
-typedef struct {
-    uint16_t avg_ch0;
-    uint16_t avg_ch16;
-} ProcessedData_t;
 
 /* ------------ Global Handles -------------- */
-static TaskTiming_t fast_sensor;
-static TaskTiming_t slow_sensor;
-static TaskTiming_t processing;
-static TaskTiming_t reporter;
-QueueHandle_t queue;
-SemaphoreHandle_t mutex;
-ProcessedData_t shared_data;
+EventGroupHandle_t group;
 
 /* ----------- Task Prototypes -------------- */
-void vTaskFastSensor(void *pvParameters);
-void vTaskSlowSensor(void *pvParameters);
-void vTaskProcessing(void *pvParameters);
-void vTaskReporter(void *pvParameters);
+void vTaskADCSensor(void *pvParameters);
+void vTaskTempSensor(void *pvParameters);
+void vTaskSupervisor(void *pvParameters);
 
 /* ============================================
  * Main
  * ============================================ */
 int main(void)
 {
+    /* ---- Watchdog ---- */
+    bool wdg_reset = iwdg_check();
+    iwdg_init(2000, 4);
+
     /* ---- Hardware Init ---- */
-    timing_init();
-    adc_init();
     uart_init(9600);
+    adc_init();
 
-    /* ---- Create Queue ---- */
-    queue = xQueueCreate(10, sizeof(SensorReading_t));
-    mutex = xSemaphoreCreateMutex();
+    /* ---- Report Reset Source ---- */
+    if (wdg_reset) {
+        uart_write_string("WATCHDOG RESET DETECTED\r\n");
+    }
+    else {
+        uart_write_string("Normal boot\r\n");
+    }
 
+    /* ---- Create Event Group ---- */
+    group = xEventGroupCreate();
+ 
     /* ---- Create Tasks ---- */
     xTaskCreate(
-        vTaskFastSensor,
-        "Fast Sensor",
+        vTaskADCSensor,
+        "ADC",
         STACK_SIZE,
         NULL,
-        4,
+        1,
         NULL
     );
 
     xTaskCreate(
-        vTaskSlowSensor,
-        "Slow Sensor",
-        STACK_SIZE,
-        NULL,
-        3,
-        NULL
-    );
-
-    xTaskCreate(
-        vTaskProcessing,
-        "Processing",
+        vTaskTempSensor,
+        "Temp",
         STACK_SIZE,
         NULL,
         2,
@@ -94,13 +67,16 @@ int main(void)
     );
 
     xTaskCreate(
-        vTaskReporter,
-        "Reporter",
+        vTaskSupervisor,
+        "Supervisor",
         STACK_SIZE,
         NULL,
-        1,
+        3,
         NULL
     );
+
+    /* ---- Start Watchdog ----*/
+    iwdg_start();
 
     /* ---- Start Scheduler ---- */
     vTaskStartScheduler();
@@ -109,121 +85,58 @@ int main(void)
     while (1);
 }
 
-void vTaskFastSensor(void *pvParameters) {
+void vTaskADCSensor(void *pvParameters) {
     (void)pvParameters;
-    TickType_t xLastWakeTime = xTaskGetTickCount();
-    const TickType_t xPeriod = pdMS_TO_TICKS(100);
-    SensorReading_t sensorReading;
+    char buf[32];
 
     for (;;) {
-        timing_jitter(&fast_sensor, xLastWakeTime);
-        timing_start(&fast_sensor);
         uint16_t raw_value = adc_read(0);
-        sensorReading.channel = 0;
-        sensorReading.raw_value = raw_value;
-        sensorReading.timestamp = xTaskGetTickCount();
-        xQueueSend(queue, &sensorReading, 0);
-        timing_stop(&fast_sensor);
-        vTaskDelayUntil(&xLastWakeTime, xPeriod);
+        snprintf(buf, sizeof(buf), "ADC: %u\r\n", raw_value);
+        uart_write_string(buf);
+        xEventGroupSetBits(group, (1 << 0));
+        vTaskDelay(pdMS_TO_TICKS(500));
     }
 }
 
-void vTaskSlowSensor(void *pvParameters) {
+void vTaskTempSensor(void *pvParameters) {
     (void)pvParameters;
-    TickType_t xLastWakeTime = xTaskGetTickCount();
-    const TickType_t xPeriod = pdMS_TO_TICKS(500);
-    SensorReading_t sensorReading;
+    char buf[32];
 
     for (;;) {
-        timing_jitter(&slow_sensor, xLastWakeTime);
-        timing_start(&slow_sensor);
         uint16_t raw_value = adc_read(16);
-        sensorReading.channel = 16;
-        sensorReading.raw_value = raw_value;
-        sensorReading.timestamp = xTaskGetTickCount();
-        xQueueSend(queue, &sensorReading, 0);
-        timing_stop(&slow_sensor);
-        vTaskDelayUntil(&xLastWakeTime, xPeriod);
+        snprintf(buf, sizeof(buf), "Temp: %u\r\n", raw_value);
+        uart_write_string(buf);
+        xEventGroupSetBits(group, (1 << 1));
+        vTaskDelay(pdMS_TO_TICKS(1000));
     }
 }
 
-void vTaskProcessing(void *pvParameters) {
+void vTaskSupervisor(void *pvParameters) {
     (void)pvParameters;
-    SensorReading_t sensorReading;
-    MovingAverage_t filter_ch0  = {0};
-    MovingAverage_t filter_ch16 = {0};
-    MovingAverage_t *f;
-    uint16_t avg;
+    const EventBits_t allBits = (1 << 0) | (1 << 1);
 
     for (;;) {
-        xQueueReceive(queue, &sensorReading, portMAX_DELAY);
-        timing_start(&processing);
+        // Wait for both tasks to check in, auto clear, 3 second timeout
+        EventBits_t bits = xEventGroupWaitBits(
+            group,
+            allBits,
+            pdTRUE,
+            pdTRUE,
+            pdMS_TO_TICKS(3000)
+        );
 
-        /* Select the correct filter based on channel */
-        switch (sensorReading.channel) {
-            case 0:  f = &filter_ch0;  break;
-            case 16: f = &filter_ch16; break;
-            default: continue;
-        }
-
-        /* Update moving average */
-        f->sum -= f->buffer[f->index];
-        f->buffer[f->index] = sensorReading.raw_value;
-        f->sum += sensorReading.raw_value;
-        f->index = (f->index + 1) % FILTER_SIZE;
-        if (f->count < FILTER_SIZE) {
-            f->count++;
-        }
-        avg = f->sum / f->count;
-
-        /* Write result to shared data - hold mutex only for the write */
-        xSemaphoreTake(mutex, portMAX_DELAY);
-        if (sensorReading.channel == 0) {
-            shared_data.avg_ch0 = avg;
+        if ((bits & allBits) == allBits) {
+            // Both tasks checked in, kick the watchdog
+            iwdg_refresh();
+            uart_write_string("All tasks healthy\r\n");
         } else {
-            shared_data.avg_ch16 = avg;
+            // At least one task missed its deadline
+            if (!(bits & (1 << 0))) {
+                uart_write_string("FAULT: ADC task missed deadline\r\n");
+            }
+            if (!(bits & (1 << 1))) {
+                uart_write_string("FAULT: Temp task missed deadline\r\n");
+            }
+            // Do NOT kick watchdog, let IWDG reset the system
         }
-        xSemaphoreGive(mutex);
-
-        timing_stop(&processing);
     }
-}
-
-void vTaskReporter(void *pvParameters) {
-    (void)pvParameters;
-    TickType_t xLastWakeTime = xTaskGetTickCount();
-    const TickType_t xPeriod = pdMS_TO_TICKS(1000);
-    char buf[200];
-
-    for (;;) {
-        timing_jitter(&reporter, xLastWakeTime);
-        timing_start(&reporter);
-
-        xSemaphoreTake(mutex, portMAX_DELAY);
-        uint16_t avg0 = shared_data.avg_ch0;
-        uint16_t avg16 = shared_data.avg_ch16;
-        xSemaphoreGive(mutex);
-
-        /* Format and send sensor data */
-        snprintf(buf, sizeof(buf),
-                "CH0: %u    CH16: %u\r\n",
-                avg0, avg16);
-        uart_write_string(buf);
-
-        /* Format and send timing stats (WCET in cycles, jitter in ticks) */
-        snprintf(buf, sizeof(buf),
-            "WCET  Fast:%lu Slow:%lu Proc:%lu Rep:%lu\r\n"
-            "Jitter Fast:%lu Slow:%lu Rep:%lu\r\n\r\n",
-            fast_sensor.worst_case_cycles,
-            slow_sensor.worst_case_cycles,
-            processing.worst_case_cycles,
-            reporter.worst_case_cycles,
-            fast_sensor.worst_jitter_ticks,
-            slow_sensor.worst_jitter_ticks,
-            reporter.worst_jitter_ticks);
-        uart_write_string(buf);
-
-        timing_stop(&reporter);
-        vTaskDelayUntil(&xLastWakeTime, xPeriod);
-    }
-}
