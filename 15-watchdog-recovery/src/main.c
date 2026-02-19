@@ -1,5 +1,5 @@
 /* ============================================
- * Project : 
+ * Project 15: Watchdog Recovery 
  * ============================================ */
 
 /* ---------------- Includes ---------------- */
@@ -29,7 +29,11 @@ void vTaskSupervisor(void *pvParameters);
 int main(void)
 {
     /* ---- Watchdog ---- */
+    // Check reset source BEFORE initializing anything
+    // Must read RCC flags before they get cleared
     bool wdg_reset = iwdg_check();
+    // Prescaler 4 = /64 divider, reload 2000
+    // Timeout = (64 * 2000) / 32000Hz = 4 seconds
     iwdg_init(2000, 4);
 
     /* ---- Hardware Init ---- */
@@ -45,6 +49,9 @@ int main(void)
     }
 
     /* ---- Create Event Group ---- */
+    // Bit 0 = ADC task check-in
+    // Bit 1 = Temp task check-in
+    // Supervisor waits for both bits before kicking watchdog
     group = xEventGroupCreate();
  
     /* ---- Create Tasks ---- */
@@ -76,6 +83,9 @@ int main(void)
     );
 
     /* ---- Start Watchdog ----*/
+    // Start IWDG right before scheduler
+    // Once started, it CANNOT be stopped
+    // 4 second countdown begins here
     iwdg_start();
 
     /* ---- Start Scheduler ---- */
@@ -93,6 +103,7 @@ void vTaskADCSensor(void *pvParameters) {
         uint16_t raw_value = adc_read(0);
         snprintf(buf, sizeof(buf), "ADC: %u\r\n", raw_value);
         uart_write_string(buf);
+        // Check in with supervisor, signal that ADC task is alive
         xEventGroupSetBits(group, (1 << 0));
         vTaskDelay(pdMS_TO_TICKS(500));
     }
@@ -106,6 +117,7 @@ void vTaskTempSensor(void *pvParameters) {
         uint16_t raw_value = adc_read(16);
         snprintf(buf, sizeof(buf), "Temp: %u\r\n", raw_value);
         uart_write_string(buf);
+        // Check in with supervisor, signal that Temp task is alive
         xEventGroupSetBits(group, (1 << 1));
         vTaskDelay(pdMS_TO_TICKS(1000));
     }
@@ -116,7 +128,10 @@ void vTaskSupervisor(void *pvParameters) {
     const EventBits_t allBits = (1 << 0) | (1 << 1);
 
     for (;;) {
-        // Wait for both tasks to check in, auto clear, 3 second timeout
+        // Wait up to 3 seconds for BOTH tasks to check in
+        // pdTRUE (arg 3): auto clear bits when both are set
+        // pdTRUE (arg 4): wait for ALL bits, not just any
+        // 3 sec wait + margin = within 4 sec IWDG timeout
         EventBits_t bits = xEventGroupWaitBits(
             group,
             allBits,
