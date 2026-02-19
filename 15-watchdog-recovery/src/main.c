@@ -180,3 +180,9 @@ void vTaskSupervisor(void *pvParameters) {
         }
     }
 }
+
+void vApplicationStackOverflowHook(TaskHandle_t xTask, char *pcTaskName) {
+    (void)xTask;
+    (void)pcTaskName;
+    while (1);
+}

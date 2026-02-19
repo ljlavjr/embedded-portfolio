@@ -20,7 +20,8 @@
 #define configMINIMAL_STACK_SIZE                128
 /* FreeRTOS heap used by xTaskCreate to allocate task stacks and internal structures */
 #define configTOTAL_HEAP_SIZE                   10240
-
+#define configSUPPORT_DYNAMIC_ALLOCATION        1
+#define configCHECK_FOR_STACK_OVERFLOW          2
 /* --- Scheduler Settings --- */
 /* 1 = preemptive (higher priority tasks interrupt lower ones) */
 #define configUSE_PREEMPTION                    1
