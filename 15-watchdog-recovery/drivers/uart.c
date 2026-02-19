@@ -34,6 +34,15 @@ char uart_read_char(void) {
     return USART2->DR;
 }
 
+int16_t uart_read_char_nonblocking(void) {
+    if (!(USART2->SR & (1 << RXNE))) {
+        return -1;
+    }
+    else {
+        return USART2->DR;
+    }
+}
+
 void uart_write_hex(uint8_t val) {
     char hex[] = "0123456789ABCDEF";
     uart_write_char(hex[(val >> 4) & 0x0F]);

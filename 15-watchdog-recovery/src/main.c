@@ -4,6 +4,7 @@
 
 /* ---------------- Includes ---------------- */
 #include <stdio.h>
+#include <stdbool.h>
 #include "stm32f407.h"
 #include "FreeRTOS.h"
 #include "task.h"
@@ -98,13 +99,20 @@ int main(void)
 void vTaskADCSensor(void *pvParameters) {
     (void)pvParameters;
     char buf[32];
+    bool fault = false;
 
     for (;;) {
+        EventBits_t flags = xEventGroupGetBits(group);
+        if (flags & (1 << 2)) {
+            fault = true;
+        }
         uint16_t raw_value = adc_read(0);
         snprintf(buf, sizeof(buf), "ADC: %u\r\n", raw_value);
         uart_write_string(buf);
         // Check in with supervisor, signal that ADC task is alive
-        xEventGroupSetBits(group, (1 << 0));
+        if (!fault) {
+            xEventGroupSetBits(group, (1 << 0));
+        }
         vTaskDelay(pdMS_TO_TICKS(500));
     }
 }
@@ -112,13 +120,20 @@ void vTaskADCSensor(void *pvParameters) {
 void vTaskTempSensor(void *pvParameters) {
     (void)pvParameters;
     char buf[32];
+    bool fault = false;
 
     for (;;) {
+        EventBits_t flags = xEventGroupGetBits(group);
+        if (flags & (1 << 3)) {
+            fault = true;
+        }
         uint16_t raw_value = adc_read(16);
         snprintf(buf, sizeof(buf), "Temp: %u\r\n", raw_value);
         uart_write_string(buf);
         // Check in with supervisor, signal that Temp task is alive
-        xEventGroupSetBits(group, (1 << 1));
+        if (!fault) {
+            xEventGroupSetBits(group, (1 << 1));
+        }
         vTaskDelay(pdMS_TO_TICKS(1000));
     }
 }
@@ -128,6 +143,15 @@ void vTaskSupervisor(void *pvParameters) {
     const EventBits_t allBits = (1 << 0) | (1 << 1);
 
     for (;;) {
+        int16_t ch = uart_read_char_nonblocking();
+        if (ch == 'a') {
+            xEventGroupSetBits(group, (1 << 2));
+            uart_write_string("Injecting ADC fault\r\n");
+        }
+        if (ch == 't') {
+            xEventGroupSetBits(group, (1 << 3));
+            uart_write_string("Injecting Temp fault\r\n");
+        }
         // Wait up to 3 seconds for BOTH tasks to check in
         // pdTRUE (arg 3): auto clear bits when both are set
         // pdTRUE (arg 4): wait for ALL bits, not just any

@@ -38,20 +38,14 @@ uart.o: drivers/uart.c include/uart.h
 adc.o: drivers/adc.c include/adc.h
 	$(CC) $(CFLAGS) -c drivers/adc.c -o adc.o
 
-timing.o: drivers/timing.c include/timing.h
-	$(CC) $(CFLAGS) -c drivers/timing.c -o timing.o
+iwdg.o: drivers/iwdg.c include/iwdg.h
+	$(CC) $(CFLAGS) -c drivers/iwdg.c -o iwdg.o
 
 main.o: src/main.c include/gpio.h
 	$(CC) $(CFLAGS) -c src/main.c -o main.o
 
 tasks.o: freertos/tasks.c
 	$(CC) $(CFLAGS) -c freertos/tasks.c -o tasks.o
-
-queue.o: freertos/queue.c
-	$(CC) $(CFLAGS) -c freertos/queue.c -o queue.o
-
-list.o: freertos/list.c
-	$(CC) $(CFLAGS) -c freertos/list.c -o list.o
 
 port.o: freertos/portable/GCC/ARM_CM4F/port.c
 	$(CC) $(CFLAGS) -c freertos/portable/GCC/ARM_CM4F/port.c -o port.o
@@ -61,8 +55,8 @@ heap_4.o: freertos/portable/MemMang/heap_4.c
 
 # Link everything together using our linker script
 # -lnosys:	provides stubs for OS calls you do not have
-main.elf: startup.o main.o gpio.o uart.o tasks.o queue.o list.o port.o heap_4.o adc.o timing.o
-	$(CC) $(MFLAGS) $(LDFLAGS) startup.o main.o gpio.o uart.o adc.o timing.o tasks.o queue.o list.o port.o heap_4.o -lc -lnosys -lgcc -o main.elf 
+main.elf: startup.o main.o gpio.o uart.o tasks.o port.o heap_4.o adc.o iwdg.o
+	$(CC) $(MFLAGS) $(LDFLAGS) startup.o main.o gpio.o uart.o adc.o iwdg.o tasks.o port.o heap_4.o -lc -lnosys -lgcc -o main.elf 
 
 # Convert ELF to raw binary. STM32 flash tools want .bin, not .hex like AVR
 main.bin: main.elf
