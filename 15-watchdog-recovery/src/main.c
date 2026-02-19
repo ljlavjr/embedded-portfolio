@@ -179,3 +179,4 @@ void vTaskSupervisor(void *pvParameters) {
             // Do NOT kick watchdog, let IWDG reset the system
         }
     }
+}
