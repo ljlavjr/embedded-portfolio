@@ -58,6 +58,7 @@ int main(void)
 {
     /* ---- Hardware Init ---- */
     timing_init();
+    gpio_init(GPIOA, 0, GPIO_MODE_AN);
     adc_init();
     uart_init(9600);
 
