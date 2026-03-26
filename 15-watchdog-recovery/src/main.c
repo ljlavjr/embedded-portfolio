@@ -9,6 +9,7 @@
 #include "FreeRTOS.h"
 #include "task.h"
 #include "uart.h"
+#include "gpio.h"
 #include "adc.h"
 #include "iwdg.h"
 #include "event_groups.h"
@@ -19,10 +20,11 @@
 /* ------------ Global Handles -------------- */
 EventGroupHandle_t group;
 
-/* ----------- Task Prototypes -------------- */
+/* ----------- Task/Function Prototypes -------------- */
 void vTaskADCSensor(void *pvParameters);
 void vTaskTempSensor(void *pvParameters);
 void vTaskSupervisor(void *pvParameters);
+void enter_safe_state(void);
 
 /* ============================================
  * Main
@@ -39,7 +41,13 @@ int main(void)
 
     /* ---- Hardware Init ---- */
     uart_init(9600);
+    gpio_init(GPIOA, 0, GPIO_MODE_AN);
     adc_init();
+
+    gpio_init(GPIOD, 12, GPIO_MODE_OUTPUT);
+    gpio_init(GPIOD, 13, GPIO_MODE_OUTPUT);
+    gpio_init(GPIOD, 14, GPIO_MODE_OUTPUT);
+    gpio_init(GPIOD, 15, GPIO_MODE_OUTPUT);
 
     /* ---- Report Reset Source ---- */
     if (wdg_reset) {
@@ -82,6 +90,14 @@ int main(void)
         3,
         NULL
     );
+
+    /* ---- Turn on LEDs ---- */
+    // Used to just stay on but then turn off when entering "safe state"
+    write_pin(GPIOD, 12, HIGH);
+    write_pin(GPIOD, 13, HIGH);
+    write_pin(GPIOD, 14, HIGH);
+
+    // Blue light not activated. Used to signal hard faults on the board.
 
     /* ---- Start Watchdog ----*/
     // Start IWDG right before scheduler
@@ -138,6 +154,19 @@ void vTaskTempSensor(void *pvParameters) {
     }
 }
 
+void enter_safe_state(void) {
+    // 1. Disable all outputs (LEDs for now)
+    //  In a real system this would be motors, actuators, relays
+    write_pin(GPIOD, 12, LOW);
+    write_pin(GPIOD, 13, LOW);
+    write_pin(GPIOD, 14, LOW);
+
+    // 2. Report safe state entry
+    uart_write_string("ENTERING SAFE STATE\r\n");
+
+    // 3. Let the watchdog expire and reset the system
+}
+
 void vTaskSupervisor(void *pvParameters) {
     (void)pvParameters;
     const EventBits_t allBits = (1 << 0) | (1 << 1);
@@ -176,6 +205,7 @@ void vTaskSupervisor(void *pvParameters) {
             if (!(bits & (1 << 1))) {
                 uart_write_string("FAULT: Temp task missed deadline\r\n");
             }
+            enter_safe_state();
             // Do NOT kick watchdog, let IWDG reset the system
         }
     }
