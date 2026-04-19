@@ -50,8 +50,8 @@ tasks.o: freertos/tasks.c
 list.o: freertos/list.c 
 	$(CC) $(CFLAGS) -c freertos/list.c -o list.o
 
-event_groups.o: freertos/event_groups.c 
-	$(CC) $(CFLAGS) -c freertos/event_groups.c -o event_groups.o
+# event_groups.o: freertos/event_groups.c 
+# 	$(CC) $(CFLAGS) -c freertos/event_groups.c -o event_groups.o
 
 port.o: freertos/portable/GCC/ARM_CM4F/port.c
 	$(CC) $(CFLAGS) -c freertos/portable/GCC/ARM_CM4F/port.c -o port.o
@@ -61,7 +61,7 @@ heap_4.o: freertos/portable/MemMang/heap_4.c
 
 # Link everything together using our linker script
 # -lnosys:	provides stubs for OS calls you do not have
-main.elf: startup.o main.o gpio.o uart.o tasks.o port.o heap_4.o adc.o iwdg.o list.o event_groups.o
+main.elf: startup.o main.o gpio.o uart.o tasks.o port.o heap_4.o adc.o iwdg.o list.o #event_groups.o
 	$(CC) $(MFLAGS) $(LDFLAGS) startup.o main.o gpio.o uart.o adc.o iwdg.o list.o tasks.o port.o heap_4.o event_groups.o -lc -lnosys -lgcc -o main.elf 
 
 # Convert ELF to raw binary. STM32 flash tools want .bin, not .hex like AVR

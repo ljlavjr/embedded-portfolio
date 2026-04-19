@@ -40,13 +40,12 @@ void vTestTask(void *pvParameters) {
  * ============================================ */
 int main(void)
 {
-   uart_init(9600);
+     uart_init(9600);
     uart_write_string("before scheduler\r\n");
 
     xTaskCreate(vTestTask, "Test", STACK_SIZE, NULL, 1, NULL);
 
     vTaskStartScheduler();
-    uart_write_string("scheduler failed\r\n");
     while (1);
 //     /* ---- Watchdog ---- */
 //     // Check reset source BEFORE initializing anything
