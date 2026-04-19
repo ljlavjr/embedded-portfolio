@@ -116,7 +116,7 @@ int main(void)
     // Start IWDG right before scheduler
     // Once started, it CANNOT be stopped
     // 4 second countdown begins here
-    iwdg_start();
+    // iwdg_start();
 
     /* ---- Start Scheduler ---- */
     uart_write_string("Starting scheduler\r\n");
