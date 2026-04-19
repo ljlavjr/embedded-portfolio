@@ -29,19 +29,19 @@ This is a collection of projects that build from the "Hello World" of embedded p
 | 08 | FreeRTOS Basics | STM32F407 | Tasks, Priorities, Scheduler | Complete |
 | 09 | Inter-Task Communication | STM32F407 | Queues, Producer-Consumer | Complete |
 | 10 | Resource Sharing | STM32F407 | Mutexes, Semaphores, Priority Inversion | Complete |
-| 11 | Real-Time Sensor System | STM32F407 | Multi-task Application, Timing Analysis | Planned |
+| 11 | Real-Time Sensor System | STM32F407 | Multi-task Application, Timing Analysis | Complete |
 
 ### Phase 4: Automotive Protocols
 | # | Project | Platform | Skills | Status |
 |---|---------|----------|--------|--------|
-| 12 | CAN Bus Communication | STM32F407 | CAN Protocol, Message Filtering, Multi-node | Planned |
+| 12 | CAN Bus Communication | STM32F407 | CAN Protocol, Message Filtering, Multi-node | In Progress |
 | 13 | Modbus RTU | STM32F407 | Industrial Protocol, Master/Slave, CRC | Planned |
 | 14 | OBD-II Reader | STM32F407 | Automotive Diagnostics, CAN, PID Parsing | Planned |
 
 ### Phase 5: Firmware Fundamentals
 | # | Project | Platform | Skills | Status |
 |---|---------|----------|--------|--------|
-| 15 | Watchdog Recovery | STM32F407 | IWDG, Fault Logging, Safe State | Planned |
+| 15 | Watchdog Recovery | STM32F407 | IWDG, Fault Logging, Safe State | In Progress |
 | 16 | Custom Bootloader | STM32F407 | Dual-bank Flash, Jump to App, Update Protocol | Planned |
 | 17 | USB CDC Device | STM32F407 | USB Stack, Descriptors, Enumeration | Planned |
 
