@@ -65,7 +65,7 @@ int main(void)
     if (group == NULL) {
     uart_write_string("Event group FAILED\r\n");
 }
- 
+ BaseType_t ret;
     /* ---- Create Tasks ---- */
     ret = xTaskCreate(
         vTaskADCSensor,
