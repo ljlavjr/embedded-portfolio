@@ -26,19 +26,27 @@ void vTaskTempSensor(void *pvParameters);
 void vTaskSupervisor(void *pvParameters);
 void enter_safe_state(void);
 
+void vTestTask(void *pvParameters) {
+    (void)pvParameters;
+    for (;;) {
+        uart_write_string("task alive\r\n");
+        vTaskDelay(pdMS_TO_TICKS(1000));
+    }
+}
+
+
 /* ============================================
  * Main
  * ============================================ */
 int main(void)
 {
-     uart_init(9600);
-    adc_init();
-    gpio_init(GPIOD, 12, GPIO_MODE_OUTPUT);
-    gpio_init(GPIOD, 13, GPIO_MODE_OUTPUT);
-    gpio_init(GPIOD, 14, GPIO_MODE_OUTPUT);
-    gpio_init(GPIOD, 15, GPIO_MODE_OUTPUT);
-    write_pin(GPIOD, 12, HIGH);
-    uart_write_string("peripherals ok\r\n");
+   uart_init(9600);
+    uart_write_string("before scheduler\r\n");
+
+    xTaskCreate(vTestTask, "Test", STACK_SIZE, NULL, 1, NULL);
+
+    vTaskStartScheduler();
+    uart_write_string("scheduler failed\r\n");
     while (1);
 //     /* ---- Watchdog ---- */
 //     // Check reset source BEFORE initializing anything
