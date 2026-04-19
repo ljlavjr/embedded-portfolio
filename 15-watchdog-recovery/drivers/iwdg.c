@@ -1,5 +1,6 @@
 #include "stm32f407.h"
 #include "iwdg.h"
+#include "uart.h"
 
 void iwdg_init(uint16_t reload, uint8_t prescaler) {
     // Unlock PR and RLR registers for write access
@@ -13,12 +14,12 @@ void iwdg_init(uint16_t reload, uint8_t prescaler) {
     // Load countdown value (12-bit, 0-4095)
     // Counter resets to this value on each refresh (kick)
     IWDG->RLR = reload;
-    
+
     // Wait for hardware to finish applying prescaler (PVU, bit 0)
     // and reload (RVU, bit 1) updates before proceeding
     // Bits are SET while updating, CLEAR when ready
-    while(((0b11 << 0) & IWDG->SR));
-    return;
+    // while(((0b11 << 0) & IWDG->SR));
+    // return;
 }
 
 void iwdg_start(void) {

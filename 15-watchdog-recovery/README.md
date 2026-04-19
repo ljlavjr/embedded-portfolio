@@ -119,6 +119,7 @@ All tasks healthy
 ├── drivers/
 │   ├── gpio.c
 │   ├── uart.c
+│   ├── timing.c
 │   ├── adc.c
 │   └── iwdg.c
 ├── include/
@@ -126,6 +127,7 @@ All tasks healthy
 │   └── hal/
 │       ├── gpio.h
 │       ├── uart.h
+│       ├── timing.h
 │       ├── adc.h
 │       └── iwdg.h
 ├── freertos/

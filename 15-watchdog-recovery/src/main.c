@@ -34,13 +34,26 @@ int main(void)
     /* ---- Watchdog ---- */
     // Check reset source BEFORE initializing anything
     // Must read RCC flags before they get cleared
-    bool wdg_reset = iwdg_check();
+    //bool wdg_reset = iwdg_check();
     // Prescaler 4 = /64 divider, reload 2000
     // Timeout = (64 * 2000) / 32000Hz = 4 seconds
-    iwdg_init(2000, 4);
+    // Enable LSI oscillator (needed for IWDG)
+    // iwdg_init(2000, 4);
 
     /* ---- Hardware Init ---- */
-    uart_init(9600);
+    // uart_init(9600);
+        uart_init(9600);
+    uart_write_string("1\r\n");
+
+    bool wdg_reset = iwdg_check();
+    uart_write_string("2\r\n");
+
+    RCC->CSR |= (1 << 0);
+    while (!(RCC->CSR & (1 << 1)));
+    uart_write_string("3\r\n");
+
+    iwdg_init(2000, 4);
+    uart_write_string("4\r\n");
     gpio_init(GPIOA, 0, GPIO_MODE_AN);
     adc_init();
 
@@ -116,7 +129,7 @@ int main(void)
     // Start IWDG right before scheduler
     // Once started, it CANNOT be stopped
     // 4 second countdown begins here
-    // iwdg_start();
+    iwdg_start();
 
     /* ---- Start Scheduler ---- */
     uart_write_string("Starting scheduler\r\n");
