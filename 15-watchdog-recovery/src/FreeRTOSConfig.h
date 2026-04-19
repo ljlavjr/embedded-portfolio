@@ -28,7 +28,6 @@
 /* Hooks are user callbacks. Idle hook runs when no tasks are ready. Tick hook runs every tick. */
 #define configUSE_IDLE_HOOK                     0
 #define configUSE_TICK_HOOK                     0
-#define configUSE_TIMERS                        0
 /* 0 = use 32-bit tick counter. 16-bit would overflow too fast */
 #define configUSE_16_BIT_TICKS                  0
 
