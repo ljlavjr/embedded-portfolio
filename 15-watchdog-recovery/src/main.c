@@ -31,100 +31,103 @@ void enter_safe_state(void);
  * ============================================ */
 int main(void)
 {
-    /* ---- Watchdog ---- */
-    // Check reset source BEFORE initializing anything
-    // Must read RCC flags before they get cleared
-    bool wdg_reset = iwdg_check();
-    // Prescaler 4 = /64 divider, reload 2000
-    // Timeout = (64 * 2000) / 32000Hz = 4 seconds
-    //iwdg_init(2000, 4);
-
-    /* ---- Hardware Init ---- */
-    uart_init(9600);
-    gpio_init(GPIOA, 0, GPIO_MODE_AN);
-    adc_init();
-
-    gpio_init(GPIOD, 12, GPIO_MODE_OUTPUT);
-    gpio_init(GPIOD, 13, GPIO_MODE_OUTPUT);
-    gpio_init(GPIOD, 14, GPIO_MODE_OUTPUT);
-    gpio_init(GPIOD, 15, GPIO_MODE_OUTPUT);
-
-    /* ---- Report Reset Source ---- */
-    if (wdg_reset) {
-        uart_write_string("WATCHDOG RESET DETECTED\r\n");
-    }
-    else {
-        uart_write_string("Normal boot\r\n");
-    }
-
-    /* ---- Create Event Group ---- */
-    // Bit 0 = ADC task check-in
-    // Bit 1 = Temp task check-in
-    // Supervisor waits for both bits before kicking watchdog
-    group = xEventGroupCreate();
-    if (group == NULL) {
-    uart_write_string("Event group FAILED\r\n");
-}
- BaseType_t ret;
-    /* ---- Create Tasks ---- */
-    ret = xTaskCreate(
-        vTaskADCSensor,
-        "ADC",
-        STACK_SIZE,
-        NULL,
-        1,
-        NULL
-    );
-
-    if (ret != pdPASS) {
-    uart_write_string("ADC task FAILED\r\n");
-}
-
-    ret = xTaskCreate(
-        vTaskTempSensor,
-        "Temp",
-        STACK_SIZE,
-        NULL,
-        2,
-        NULL
-    );
-    if (ret != pdPASS) {
-    uart_write_string("Temp task FAILED\r\n");
-}
-
-    ret = xTaskCreate(
-        vTaskSupervisor,
-        "Supervisor",
-        STACK_SIZE,
-        NULL,
-        3,
-        NULL
-    );
-    if (ret != pdPASS) {
-    uart_write_string("Supervisor task FAILED\r\n");
-}
-
-    /* ---- Turn on LEDs ---- */
-    // Used to just stay on but then turn off when entering "safe state"
-    write_pin(GPIOD, 12, HIGH);
-    write_pin(GPIOD, 13, HIGH);
-    write_pin(GPIOD, 14, HIGH);
-
-    // Blue light not activated. Used to signal hard faults on the board.
-
-    /* ---- Start Watchdog ----*/
-    // Start IWDG right before scheduler
-    // Once started, it CANNOT be stopped
-    // 4 second countdown begins here
-    //iwdg_start();
-
-    /* ---- Start Scheduler ---- */
-    uart_write_string("Starting scheduler\r\n");
-vTaskStartScheduler();
-uart_write_string("Scheduler returned\r\n");
-
-    /* Should never reach here */
+     uart_init(9600);
+    uart_write_string("test\r\n");
     while (1);
+//     /* ---- Watchdog ---- */
+//     // Check reset source BEFORE initializing anything
+//     // Must read RCC flags before they get cleared
+//     bool wdg_reset = iwdg_check();
+//     // Prescaler 4 = /64 divider, reload 2000
+//     // Timeout = (64 * 2000) / 32000Hz = 4 seconds
+//     //iwdg_init(2000, 4);
+
+//     /* ---- Hardware Init ---- */
+//     uart_init(9600);
+//     gpio_init(GPIOA, 0, GPIO_MODE_AN);
+//     adc_init();
+
+//     gpio_init(GPIOD, 12, GPIO_MODE_OUTPUT);
+//     gpio_init(GPIOD, 13, GPIO_MODE_OUTPUT);
+//     gpio_init(GPIOD, 14, GPIO_MODE_OUTPUT);
+//     gpio_init(GPIOD, 15, GPIO_MODE_OUTPUT);
+
+//     /* ---- Report Reset Source ---- */
+//     if (wdg_reset) {
+//         uart_write_string("WATCHDOG RESET DETECTED\r\n");
+//     }
+//     else {
+//         uart_write_string("Normal boot\r\n");
+//     }
+
+//     /* ---- Create Event Group ---- */
+//     // Bit 0 = ADC task check-in
+//     // Bit 1 = Temp task check-in
+//     // Supervisor waits for both bits before kicking watchdog
+//     group = xEventGroupCreate();
+//     if (group == NULL) {
+//     uart_write_string("Event group FAILED\r\n");
+// }
+//  BaseType_t ret;
+//     /* ---- Create Tasks ---- */
+//     ret = xTaskCreate(
+//         vTaskADCSensor,
+//         "ADC",
+//         STACK_SIZE,
+//         NULL,
+//         1,
+//         NULL
+//     );
+
+//     if (ret != pdPASS) {
+//     uart_write_string("ADC task FAILED\r\n");
+// }
+
+//     ret = xTaskCreate(
+//         vTaskTempSensor,
+//         "Temp",
+//         STACK_SIZE,
+//         NULL,
+//         2,
+//         NULL
+//     );
+//     if (ret != pdPASS) {
+//     uart_write_string("Temp task FAILED\r\n");
+// }
+
+//     ret = xTaskCreate(
+//         vTaskSupervisor,
+//         "Supervisor",
+//         STACK_SIZE,
+//         NULL,
+//         3,
+//         NULL
+//     );
+//     if (ret != pdPASS) {
+//     uart_write_string("Supervisor task FAILED\r\n");
+// }
+
+//     /* ---- Turn on LEDs ---- */
+//     // Used to just stay on but then turn off when entering "safe state"
+//     write_pin(GPIOD, 12, HIGH);
+//     write_pin(GPIOD, 13, HIGH);
+//     write_pin(GPIOD, 14, HIGH);
+
+//     // Blue light not activated. Used to signal hard faults on the board.
+
+//     /* ---- Start Watchdog ----*/
+//     // Start IWDG right before scheduler
+//     // Once started, it CANNOT be stopped
+//     // 4 second countdown begins here
+//     //iwdg_start();
+
+//     /* ---- Start Scheduler ---- */
+//     uart_write_string("Starting scheduler\r\n");
+// vTaskStartScheduler();
+// uart_write_string("Scheduler returned\r\n");
+
+//     /* Should never reach here */
+//     while (1);
 }
 
 void vTaskADCSensor(void *pvParameters) {
