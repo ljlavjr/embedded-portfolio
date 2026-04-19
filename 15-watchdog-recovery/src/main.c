@@ -143,107 +143,107 @@ int main(void)
 //     while (1);
 }
 
-void vTaskADCSensor(void *pvParameters) {
-    (void)pvParameters;
-    char buf[32];
-    bool fault = false;
+// void vTaskADCSensor(void *pvParameters) {
+//     (void)pvParameters;
+//     char buf[32];
+//     bool fault = false;
 
-    for (;;) {
-        EventBits_t flags = xEventGroupGetBits(group);
-        if (flags & (1 << 2)) {
-            fault = true;
-        }
-        uint16_t raw_value = adc_read(0);
-        snprintf(buf, sizeof(buf), "ADC: %u\r\n", raw_value);
-        uart_write_string(buf);
-        // Check in with supervisor, signal that ADC task is alive
-        if (!fault) {
-            xEventGroupSetBits(group, (1 << 0));
-        }
-        vTaskDelay(pdMS_TO_TICKS(500));
-    }
-}
+//     for (;;) {
+//         EventBits_t flags = xEventGroupGetBits(group);
+//         if (flags & (1 << 2)) {
+//             fault = true;
+//         }
+//         uint16_t raw_value = adc_read(0);
+//         snprintf(buf, sizeof(buf), "ADC: %u\r\n", raw_value);
+//         uart_write_string(buf);
+//         // Check in with supervisor, signal that ADC task is alive
+//         if (!fault) {
+//             xEventGroupSetBits(group, (1 << 0));
+//         }
+//         vTaskDelay(pdMS_TO_TICKS(500));
+//     }
+// }
 
-void vTaskTempSensor(void *pvParameters) {
-    (void)pvParameters;
-    char buf[32];
-    bool fault = false;
+// void vTaskTempSensor(void *pvParameters) {
+//     (void)pvParameters;
+//     char buf[32];
+//     bool fault = false;
 
-    for (;;) {
-        EventBits_t flags = xEventGroupGetBits(group);
-        if (flags & (1 << 3)) {
-            fault = true;
-        }
-        uint16_t raw_value = adc_read(16);
-        snprintf(buf, sizeof(buf), "Temp: %u\r\n", raw_value);
-        uart_write_string(buf);
-        // Check in with supervisor, signal that Temp task is alive
-        if (!fault) {
-            xEventGroupSetBits(group, (1 << 1));
-        }
-        vTaskDelay(pdMS_TO_TICKS(1000));
-    }
-}
+//     for (;;) {
+//         EventBits_t flags = xEventGroupGetBits(group);
+//         if (flags & (1 << 3)) {
+//             fault = true;
+//         }
+//         uint16_t raw_value = adc_read(16);
+//         snprintf(buf, sizeof(buf), "Temp: %u\r\n", raw_value);
+//         uart_write_string(buf);
+//         // Check in with supervisor, signal that Temp task is alive
+//         if (!fault) {
+//             xEventGroupSetBits(group, (1 << 1));
+//         }
+//         vTaskDelay(pdMS_TO_TICKS(1000));
+//     }
+// }
 
-void enter_safe_state(void) {
-    // 1. Disable all outputs (LEDs for now)
-    //  In a real system this would be motors, actuators, relays
-    write_pin(GPIOD, 12, LOW);
-    write_pin(GPIOD, 13, LOW);
-    write_pin(GPIOD, 14, LOW);
+// void enter_safe_state(void) {
+//     // 1. Disable all outputs (LEDs for now)
+//     //  In a real system this would be motors, actuators, relays
+//     write_pin(GPIOD, 12, LOW);
+//     write_pin(GPIOD, 13, LOW);
+//     write_pin(GPIOD, 14, LOW);
 
-    // 2. Report safe state entry
-    uart_write_string("ENTERING SAFE STATE\r\n");
+//     // 2. Report safe state entry
+//     uart_write_string("ENTERING SAFE STATE\r\n");
 
-    // 3. Let the watchdog expire and reset the system
-}
+//     // 3. Let the watchdog expire and reset the system
+// }
 
-void vTaskSupervisor(void *pvParameters) {
-    (void)pvParameters;
-    const EventBits_t allBits = (1 << 0) | (1 << 1);
+// void vTaskSupervisor(void *pvParameters) {
+//     (void)pvParameters;
+//     const EventBits_t allBits = (1 << 0) | (1 << 1);
 
-    for (;;) {
-        int16_t ch = uart_read_char_nonblocking();
-        if (ch == 'a') {
-            xEventGroupSetBits(group, (1 << 2));
-            uart_write_string("Injecting ADC fault\r\n");
-        }
-        if (ch == 't') {
-            xEventGroupSetBits(group, (1 << 3));
-            uart_write_string("Injecting Temp fault\r\n");
-        }
-        // Wait up to 3 seconds for BOTH tasks to check in
-        // pdTRUE (arg 3): auto clear bits when both are set
-        // pdTRUE (arg 4): wait for ALL bits, not just any
-        // 3 sec wait + margin = within 4 sec IWDG timeout
-        EventBits_t bits = xEventGroupWaitBits(
-            group,
-            allBits,
-            pdTRUE,
-            pdTRUE,
-            pdMS_TO_TICKS(3000)
-        );
+//     for (;;) {
+//         int16_t ch = uart_read_char_nonblocking();
+//         if (ch == 'a') {
+//             xEventGroupSetBits(group, (1 << 2));
+//             uart_write_string("Injecting ADC fault\r\n");
+//         }
+//         if (ch == 't') {
+//             xEventGroupSetBits(group, (1 << 3));
+//             uart_write_string("Injecting Temp fault\r\n");
+//         }
+//         // Wait up to 3 seconds for BOTH tasks to check in
+//         // pdTRUE (arg 3): auto clear bits when both are set
+//         // pdTRUE (arg 4): wait for ALL bits, not just any
+//         // 3 sec wait + margin = within 4 sec IWDG timeout
+//         EventBits_t bits = xEventGroupWaitBits(
+//             group,
+//             allBits,
+//             pdTRUE,
+//             pdTRUE,
+//             pdMS_TO_TICKS(3000)
+//         );
 
-        if ((bits & allBits) == allBits) {
-            // Both tasks checked in, kick the watchdog
-            iwdg_refresh();
-            uart_write_string("All tasks healthy\r\n");
-        } else {
-            // At least one task missed its deadline
-            if (!(bits & (1 << 0))) {
-                uart_write_string("FAULT: ADC task missed deadline\r\n");
-            }
-            if (!(bits & (1 << 1))) {
-                uart_write_string("FAULT: Temp task missed deadline\r\n");
-            }
-            enter_safe_state();
-            // Do NOT kick watchdog, let IWDG reset the system
-        }
-    }
-}
+//         if ((bits & allBits) == allBits) {
+//             // Both tasks checked in, kick the watchdog
+//             iwdg_refresh();
+//             uart_write_string("All tasks healthy\r\n");
+//         } else {
+//             // At least one task missed its deadline
+//             if (!(bits & (1 << 0))) {
+//                 uart_write_string("FAULT: ADC task missed deadline\r\n");
+//             }
+//             if (!(bits & (1 << 1))) {
+//                 uart_write_string("FAULT: Temp task missed deadline\r\n");
+//             }
+//             enter_safe_state();
+//             // Do NOT kick watchdog, let IWDG reset the system
+//         }
+//     }
+// }
 
-void vApplicationStackOverflowHook(TaskHandle_t xTask, char *pcTaskName) {
-    (void)xTask;
-    (void)pcTaskName;
-    while (1);
-}
+// void vApplicationStackOverflowHook(TaskHandle_t xTask, char *pcTaskName) {
+//     (void)xTask;
+//     (void)pcTaskName;
+//     while (1);
+// }
