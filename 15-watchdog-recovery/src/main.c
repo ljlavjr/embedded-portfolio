@@ -31,9 +31,18 @@ void enter_safe_state(void);
  * ============================================ */
 int main(void)
 {
+      bool wdg_reset = iwdg_check();
     uart_init(9600);
+    adc_init();
+
+    if (wdg_reset) {
+        uart_write_string("WATCHDOG RESET DETECTED\r\n");
+    } else {
+        uart_write_string("Normal boot\r\n");
+    }
+
     while (1) {
-        uart_write_string("Hello\r\n");
+        uart_write_string("running\r\n");
         for (volatile int i = 0; i < 1000000; i++);
     }
     // /* ---- Watchdog ---- */
