@@ -35,16 +35,29 @@ int main(void)
     uart_init(9600);
     adc_init();
 
+    gpio_init(GPIOD, 12, GPIO_MODE_OUTPUT);
+    gpio_init(GPIOD, 13, GPIO_MODE_OUTPUT);
+    gpio_init(GPIOD, 14, GPIO_MODE_OUTPUT);
+    gpio_init(GPIOD, 15, GPIO_MODE_OUTPUT);
+
     if (wdg_reset) {
         uart_write_string("WATCHDOG RESET DETECTED\r\n");
     } else {
         uart_write_string("Normal boot\r\n");
     }
 
-    while (1) {
-        uart_write_string("running\r\n");
-        for (volatile int i = 0; i < 1000000; i++);
-    }
+    group = xEventGroupCreate();
+
+    // Create all three tasks
+
+    write_pin(GPIOD, 12, HIGH);
+    write_pin(GPIOD, 13, HIGH);
+    write_pin(GPIOD, 14, HIGH);
+
+    // NO iwdg_init or iwdg_start
+
+    vTaskStartScheduler();
+    while (1);
     // /* ---- Watchdog ---- */
     // // Check reset source BEFORE initializing anything
     // // Must read RCC flags before they get cleared
