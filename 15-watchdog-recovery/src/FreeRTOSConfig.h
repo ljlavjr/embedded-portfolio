@@ -32,6 +32,16 @@
 /* 0 = use 32-bit tick counter. 16-bit would overflow too fast */
 #define configUSE_16_BIT_TICKS                  0
 
+/* --- Timer Settings --- */
+/* Required for event groups. Timer daemon task handles deferred interrupt processing */
+#define configUSE_TIMERS                        1
+/* Timer task runs at highest priority to ensure event group operations are processed promptly */
+#define configTIMER_TASK_PRIORITY               (configMAX_PRIORITIES - 1)
+/* Number of commands the timer command queue can hold */
+#define configTIMER_QUEUE_LENGTH                5
+/* Stack size for the timer daemon task */
+#define configTIMER_TASK_STACK_DEPTH            configMINIMAL_STACK_SIZE
+
 /* --- Interrupt Settings --- */
 /* Highest interrupt priority FreeRTOS can manage (priority 11 of 16).
  * Interrupts above this (lower number) won't be delayed by the scheduler */
