@@ -32,7 +32,13 @@ void enter_safe_state(void);
 int main(void)
 {
      uart_init(9600);
-    uart_write_string("test\r\n");
+    adc_init();
+    gpio_init(GPIOD, 12, GPIO_MODE_OUTPUT);
+    gpio_init(GPIOD, 13, GPIO_MODE_OUTPUT);
+    gpio_init(GPIOD, 14, GPIO_MODE_OUTPUT);
+    gpio_init(GPIOD, 15, GPIO_MODE_OUTPUT);
+    write_pin(GPIOD, 12, HIGH);
+    uart_write_string("peripherals ok\r\n");
     while (1);
 //     /* ---- Watchdog ---- */
 //     // Check reset source BEFORE initializing anything
