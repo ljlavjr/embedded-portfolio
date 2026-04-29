@@ -1,10 +1,10 @@
 # Embedded Systems Portfolio
 
 ## About Me
-My name is Lawrence (Larry) Lavigne. I am a Computer Engineering graduate from the University of Tennessee, Knoxville and I currently work as a Technology Intern in an IT department. I am an aspiring embedded engineer and I am working towards building up the fundamentals I have learned while I was attending UT as well as expanding my knowledge of industry related embedded projects. This portfolio demonstrates my progress toward an entry-level embedded engineering role. 
+My name is Lawrence (Larry) Lavigne. I am a Computer Engineering graduate from the University of Tennessee, Knoxville, and I work as an Embedded Software Engineer. This portfolio is where I continue building on the fundamentals I learned at UT and expand into areas of embedded systems beyond what I touch day-to-day at work: bare-metal firmware, RTOS, automotive protocols, custom PCB design, and eventually RF and hardware security.
 
 ## What This Is
-This is a collection of projects that build from the "Hello World" of embedded programming, blinking an LED, all the way to embedded Linux and Network Security. As each new project is added, it builds on what the previous projects have taught me.
+This is a collection of projects that build from the "Hello World" of embedded programming, blinking an LED, through custom PCB design, embedded Linux, and network security. Each new project builds on what the previous ones have taught me.
 
 ## Projects
 
@@ -38,10 +38,16 @@ This is a collection of projects that build from the "Hello World" of embedded p
 | 13 | Modbus RTU | STM32F407 | Industrial Protocol, Master/Slave, CRC | Planned |
 | 14 | OBD-II Reader | STM32F407 | Automotive Diagnostics, CAN, PID Parsing | Planned |
 
+### Phase 4.5: Custom Hardware
+| # | Project | Platform | Skills | Status |
+|---|---------|----------|--------|--------|
+| 12b | CAN Node PCB | Custom STM32 | KiCad, Schematic Capture, 2-layer Layout | Planned |
+| 13b | RS-485 Modbus PCB | Custom STM32 | Differential Signaling, Transceiver Design | Planned |
+
 ### Phase 5: Firmware Fundamentals
 | # | Project | Platform | Skills | Status |
 |---|---------|----------|--------|--------|
-| 15 | Watchdog Recovery | STM32F407 | IWDG, Fault Logging, Safe State | In Progress |
+| 15 | Watchdog Recovery | STM32F407 | IWDG, Fault Logging, Safe State | Complete |
 | 16 | Custom Bootloader | STM32F407 | Dual-bank Flash, Jump to App, Update Protocol | Planned |
 | 17 | USB CDC Device | STM32F407 | USB Stack, Descriptors, Enumeration | Planned |
 
@@ -76,7 +82,7 @@ This is a collection of projects that build from the "Hello World" of embedded p
 | -- | IoT Backend | Raspberry Pi 4 | MQTT, InfluxDB, Grafana, Telegraf | Complete |
 
 ## Learning Path
-I'm taking a bottom-up approach. Starting with bare-metal AVR and ARM programming to build hardware fundamentals (registers, GPIOs, data transfer), then moving to FreeRTOS since RTOS experience appears in nearly every embedded job posting. From there I branch into automotive protocols (CAN, Modbus) since I have some experience in that field, then IoT, embedded Linux, and eventually networking and security. I also set up a CI/CD pipeline from GitHub Actions to my Raspberry Pi server for build visibility after each push.
+I'm taking a bottom-up approach. Starting with bare-metal AVR and ARM programming to build hardware fundamentals (registers, GPIOs, data transfer), then moving to FreeRTOS since RTOS experience appears in nearly every embedded job posting. From there I branch into automotive protocols (CAN, Modbus) since I have some experience in that field, then move firmware projects onto custom PCBs I design in KiCad. After that comes IoT and wireless work, with a long-term direction toward RF systems and hardware security (both offensive and defensive). I also set up a CI/CD pipeline from GitHub Actions to my Raspberry Pi server for build visibility after each push.
 
 ## Hardware
 - Arduino Mega 2560 (Elegoo)
