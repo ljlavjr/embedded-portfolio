@@ -34,7 +34,7 @@ This is a collection of projects that build from the "Hello World" of embedded p
 ### Phase 4: Automotive Protocols
 | # | Project | Platform | Skills | Status |
 |---|---------|----------|--------|--------|
-| 12 | CAN Bus Communication | STM32F407 | CAN Protocol, Message Filtering, Multi-node | In Progress |
+| 12 | CAN Bus Communication | STM32F407 | CAN Protocol, Message Filtering, Multi-node | Complete |
 | 13 | Modbus RTU | STM32F407 | Industrial Protocol, Master/Slave, CRC | Planned |
 | 14 | OBD-II Reader | STM32F407 | Automotive Diagnostics, CAN, PID Parsing | Planned |
 
