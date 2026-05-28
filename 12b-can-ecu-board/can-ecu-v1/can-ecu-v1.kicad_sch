@@ -8755,7 +8755,7 @@
 				(justify left)
 			)
 		)
-		(property "Value" "C_Small_US"
+		(property "Value" "20p"
 			(at 90.17 61.0869 0)
 			(show_name no)
 			(do_not_autoplace no)
@@ -8766,7 +8766,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Capacitor_SMD:C_0603_1608Metric"
 			(at 87.63 59.69 0)
 			(hide yes)
 			(show_name no)
@@ -8789,6 +8789,39 @@
 			)
 		)
 		(property "Description" "capacitor, small US symbol"
+			(at 87.63 59.69 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "LCSC" "C1804"
+			(at 87.63 59.69 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "KLC_S3.3" ""
+			(at 87.63 59.69 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "KLC_S4.1" ""
 			(at 87.63 59.69 0)
 			(hide yes)
 			(show_name no)
@@ -8915,7 +8948,7 @@
 				(justify left)
 			)
 		)
-		(property "Value" "C_Small_US"
+		(property "Value" "10u"
 			(at 198.12 40.7669 0)
 			(show_name no)
 			(do_not_autoplace no)
@@ -8926,7 +8959,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Capacitor_SMD:C_0603_1608Metric"
 			(at 195.58 39.37 0)
 			(hide yes)
 			(show_name no)
@@ -8949,6 +8982,39 @@
 			)
 		)
 		(property "Description" "capacitor, small US symbol"
+			(at 195.58 39.37 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "LCSC" "C19702"
+			(at 195.58 39.37 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "KLC_S3.3" ""
+			(at 195.58 39.37 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "KLC_S4.1" ""
 			(at 195.58 39.37 0)
 			(hide yes)
 			(show_name no)
@@ -9075,7 +9141,7 @@
 				(justify left)
 			)
 		)
-		(property "Value" "R_US"
+		(property "Value" "470"
 			(at 201.93 154.9399 0)
 			(show_name no)
 			(do_not_autoplace no)
@@ -9086,7 +9152,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Resistor_SMD:R_0603_1608Metric"
 			(at 200.406 153.924 90)
 			(hide yes)
 			(show_name no)
@@ -9109,6 +9175,39 @@
 			)
 		)
 		(property "Description" "Resistor, US symbol"
+			(at 199.39 153.67 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "LCSC" "C23179"
+			(at 199.39 153.67 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "KLC_S3.3" ""
+			(at 199.39 153.67 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "KLC_S4.1" ""
 			(at 199.39 153.67 0)
 			(hide yes)
 			(show_name no)
@@ -9157,7 +9256,7 @@
 				(justify left)
 			)
 		)
-		(property "Value" "LED"
+		(property "Value" "Blue"
 			(at 191.77 143.1924 90)
 			(show_name no)
 			(do_not_autoplace no)
@@ -9168,7 +9267,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "LED_SMD:LED_0603_1608Metric"
 			(at 189.23 143.51 0)
 			(hide yes)
 			(show_name no)
@@ -9203,6 +9302,39 @@
 		)
 		(property "Sim.Pins" "1=K 2=A"
 			(at 189.23 143.51 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "LCSC" "C72041"
+			(at 189.23 143.51 90)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "KLC_S3.3" ""
+			(at 189.23 143.51 90)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "KLC_S4.1" ""
+			(at 189.23 143.51 90)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -9328,7 +9460,7 @@
 				(justify left)
 			)
 		)
-		(property "Value" "R_US"
+		(property "Value" "470"
 			(at 182.88 154.9399 0)
 			(show_name no)
 			(do_not_autoplace no)
@@ -9339,7 +9471,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Resistor_SMD:R_0603_1608Metric"
 			(at 181.356 153.924 90)
 			(hide yes)
 			(show_name no)
@@ -9362,6 +9494,39 @@
 			)
 		)
 		(property "Description" "Resistor, US symbol"
+			(at 180.34 153.67 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "LCSC" "C23179"
+			(at 180.34 153.67 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "KLC_S3.3" ""
+			(at 180.34 153.67 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "KLC_S4.1" ""
 			(at 180.34 153.67 0)
 			(hide yes)
 			(show_name no)
@@ -9566,7 +9731,7 @@
 				(justify left)
 			)
 		)
-		(property "Value" "C_Small_US"
+		(property "Value" "10n"
 			(at 180.34 91.5669 0)
 			(show_name no)
 			(do_not_autoplace no)
@@ -9577,7 +9742,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Capacitor_SMD:C_0603_1608Metric"
 			(at 177.8 90.17 0)
 			(hide yes)
 			(show_name no)
@@ -9600,6 +9765,39 @@
 			)
 		)
 		(property "Description" "capacitor, small US symbol"
+			(at 177.8 90.17 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "LCSC" "C57112"
+			(at 177.8 90.17 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "KLC_S3.3" ""
+			(at 177.8 90.17 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "KLC_S4.1" ""
 			(at 177.8 90.17 0)
 			(hide yes)
 			(show_name no)
@@ -9648,7 +9846,7 @@
 				(justify left)
 			)
 		)
-		(property "Value" "Conn_01x05"
+		(property "Value" "SWD"
 			(at 171.45 71.1199 0)
 			(show_name no)
 			(do_not_autoplace no)
@@ -9659,7 +9857,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Connector_PinHeader_2.54mm:PinHeader_1x05_P2.54mm_Vertical"
 			(at 168.91 69.85 0)
 			(hide yes)
 			(show_name no)
@@ -9682,6 +9880,39 @@
 			)
 		)
 		(property "Description" "Generic connector, single row, 01x05, script generated (kicad-library-utils/schlib/autogen/connector/)"
+			(at 168.91 69.85 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "LCSC" "C50982"
+			(at 168.91 69.85 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "KLC_S3.3" ""
+			(at 168.91 69.85 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "KLC_S4.1" ""
 			(at 168.91 69.85 0)
 			(hide yes)
 			(show_name no)
@@ -9816,7 +10047,7 @@
 				)
 			)
 		)
-		(property "Value" "R_US"
+		(property "Value" "10k"
 			(at 85.09 26.67 90)
 			(show_name no)
 			(do_not_autoplace no)
@@ -9826,7 +10057,7 @@
 				)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Resistor_SMD:R_0603_1608Metric"
 			(at 85.344 29.464 90)
 			(hide yes)
 			(show_name no)
@@ -9850,6 +10081,39 @@
 		)
 		(property "Description" "Resistor, US symbol"
 			(at 85.09 30.48 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "LCSC" "C25804"
+			(at 85.09 30.48 90)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "KLC_S3.3" ""
+			(at 85.09 30.48 90)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "KLC_S4.1" ""
+			(at 85.09 30.48 90)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -10011,6 +10275,39 @@
 			)
 		)
 		(property "Description" "STMicroelectronics Arm Cortex-M4 MCU, 1024KB flash, 192KB RAM, 168 MHz, 1.8-3.6V, 82 GPIO, LQFP100"
+			(at 123.19 95.25 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "LCSC" "C12345"
+			(at 123.19 95.25 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "KLC_S3.3" ""
+			(at 123.19 95.25 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "KLC_S4.1" ""
 			(at 123.19 95.25 0)
 			(hide yes)
 			(show_name no)
@@ -10397,6 +10694,39 @@
 				)
 			)
 		)
+		(property "LCSC" "C12084"
+			(at 205.74 66.04 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "KLC_S3.3" ""
+			(at 205.74 66.04 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "KLC_S4.1" ""
+			(at 205.74 66.04 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
 		(pin "7"
 			(uuid "89da8946-9c67-4fe6-a2bd-ce27e045b695")
 		)
@@ -10531,7 +10861,7 @@
 				(justify left)
 			)
 		)
-		(property "Value" "C_Small_US"
+		(property "Value" "100n"
 			(at 223.52 67.4369 0)
 			(show_name no)
 			(do_not_autoplace no)
@@ -10542,7 +10872,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Capacitor_SMD:C_0603_1608Metric"
 			(at 220.98 66.04 0)
 			(hide yes)
 			(show_name no)
@@ -10565,6 +10895,39 @@
 			)
 		)
 		(property "Description" "capacitor, small US symbol"
+			(at 220.98 66.04 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "LCSC" "C14663"
+			(at 220.98 66.04 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "KLC_S3.3" ""
+			(at 220.98 66.04 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "KLC_S4.1" ""
 			(at 220.98 66.04 0)
 			(hide yes)
 			(show_name no)
@@ -10613,7 +10976,7 @@
 				(justify right)
 			)
 		)
-		(property "Value" "SW_Push"
+		(property "Value" "Reset"
 			(at 74.93 35.5599 90)
 			(show_name no)
 			(do_not_autoplace no)
@@ -10624,7 +10987,7 @@
 				(justify right)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Button_Switch_SMD:SW_SPST_PTS645Sx43SMTR92"
 			(at 68.58 34.29 0)
 			(hide yes)
 			(show_name no)
@@ -10648,6 +11011,39 @@
 		)
 		(property "Description" "Push button switch, generic, two pins"
 			(at 73.66 34.29 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "LCSC" "C318884"
+			(at 73.66 34.29 90)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "KLC_S3.3" ""
+			(at 73.66 34.29 90)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "KLC_S4.1" ""
+			(at 73.66 34.29 90)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -10774,7 +11170,7 @@
 				(justify left)
 			)
 		)
-		(property "Value" "R_US"
+		(property "Value" "470"
 			(at 167.64 154.9399 0)
 			(show_name no)
 			(do_not_autoplace no)
@@ -10785,7 +11181,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Resistor_SMD:R_0603_1608Metric"
 			(at 166.116 153.924 90)
 			(hide yes)
 			(show_name no)
@@ -10808,6 +11204,39 @@
 			)
 		)
 		(property "Description" "Resistor, US symbol"
+			(at 165.1 153.67 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "LCSC" "C23179"
+			(at 165.1 153.67 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "KLC_S3.3" ""
+			(at 165.1 153.67 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "KLC_S4.1" ""
 			(at 165.1 153.67 0)
 			(hide yes)
 			(show_name no)
@@ -10855,7 +11284,7 @@
 				)
 			)
 		)
-		(property "Value" "R_Small_US"
+		(property "Value" "5.1k"
 			(at 270.51 35.56 90)
 			(show_name no)
 			(do_not_autoplace no)
@@ -10865,7 +11294,7 @@
 				)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Resistor_SMD:R_0603_1608Metric"
 			(at 270.51 39.37 0)
 			(hide yes)
 			(show_name no)
@@ -10889,6 +11318,39 @@
 		)
 		(property "Description" "Resistor, small US symbol"
 			(at 270.51 39.37 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "LCSC" "C23186"
+			(at 270.51 39.37 90)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "KLC_S3.3" ""
+			(at 270.51 39.37 90)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "KLC_S4.1" ""
+			(at 270.51 39.37 90)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -10936,7 +11398,7 @@
 				(justify left)
 			)
 		)
-		(property "Value" "C_Small_US"
+		(property "Value" "100n"
 			(at 147.32 22.9869 0)
 			(show_name no)
 			(do_not_autoplace no)
@@ -10947,7 +11409,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Capacitor_SMD:C_0603_1608Metric"
 			(at 144.78 21.59 0)
 			(hide yes)
 			(show_name no)
@@ -10970,6 +11432,39 @@
 			)
 		)
 		(property "Description" "capacitor, small US symbol"
+			(at 144.78 21.59 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "LCSC" "C14663"
+			(at 144.78 21.59 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "KLC_S3.3" ""
+			(at 144.78 21.59 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "KLC_S4.1" ""
 			(at 144.78 21.59 0)
 			(hide yes)
 			(show_name no)
@@ -11095,7 +11590,7 @@
 				)
 			)
 		)
-		(property "Value" "USB_C_Receptacle_USB2.0_14P"
+		(property "Value" "USB-C"
 			(at 246.38 29.21 0)
 			(show_name no)
 			(do_not_autoplace no)
@@ -11105,7 +11600,7 @@
 				)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Connector_USB:USB_C_Receptacle_GCT_USB4135-GF-A_6P_TopMnt_Horizontal"
 			(at 250.19 49.53 0)
 			(hide yes)
 			(show_name no)
@@ -11128,6 +11623,39 @@
 			)
 		)
 		(property "Description" "USB 2.0-only 14P Type-C Receptacle connector"
+			(at 246.38 49.53 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "LCSC" "C2765186"
+			(at 246.38 49.53 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "KLC_S3.3" ""
+			(at 246.38 49.53 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "KLC_S4.1" ""
 			(at 246.38 49.53 0)
 			(hide yes)
 			(show_name no)
@@ -11215,7 +11743,7 @@
 				(justify left)
 			)
 		)
-		(property "Value" "LED"
+		(property "Value" "Yellow"
 			(at 201.93 143.1924 90)
 			(show_name no)
 			(do_not_autoplace no)
@@ -11226,7 +11754,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "LED_SMD:LED_0603_1608Metric"
 			(at 199.39 143.51 0)
 			(hide yes)
 			(show_name no)
@@ -11261,6 +11789,39 @@
 		)
 		(property "Sim.Pins" "1=K 2=A"
 			(at 199.39 143.51 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "LCSC" "C72038"
+			(at 199.39 143.51 90)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "KLC_S3.3" ""
+			(at 199.39 143.51 90)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "KLC_S4.1" ""
+			(at 199.39 143.51 90)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -11308,7 +11869,7 @@
 				(justify left)
 			)
 		)
-		(property "Value" "C_Small_US"
+		(property "Value" "100n"
 			(at 90.17 36.9569 0)
 			(show_name no)
 			(do_not_autoplace no)
@@ -11319,7 +11880,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Capacitor_SMD:C_0603_1608Metric"
 			(at 87.63 35.56 0)
 			(hide yes)
 			(show_name no)
@@ -11342,6 +11903,39 @@
 			)
 		)
 		(property "Description" "capacitor, small US symbol"
+			(at 87.63 35.56 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "LCSC" "C14663"
+			(at 87.63 35.56 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "KLC_S3.3" ""
+			(at 87.63 35.56 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "KLC_S4.1" ""
 			(at 87.63 35.56 0)
 			(hide yes)
 			(show_name no)
@@ -11390,7 +11984,7 @@
 				(justify left)
 			)
 		)
-		(property "Value" "Conn_01x03"
+		(property "Value" "CAN"
 			(at 226.06 86.3599 0)
 			(show_name no)
 			(do_not_autoplace no)
@@ -11401,7 +11995,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Connector_PinHeader_2.54mm:PinHeader_1x03_P2.54mm_Vertical"
 			(at 223.52 85.09 0)
 			(hide yes)
 			(show_name no)
@@ -11424,6 +12018,39 @@
 			)
 		)
 		(property "Description" "Generic connector, single row, 01x03, script generated (kicad-library-utils/schlib/autogen/connector/)"
+			(at 223.52 85.09 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "LCSC" "C50980"
+			(at 223.52 85.09 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "KLC_S3.3" ""
+			(at 223.52 85.09 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "KLC_S4.1" ""
 			(at 223.52 85.09 0)
 			(hide yes)
 			(show_name no)
@@ -11597,6 +12224,39 @@
 				)
 			)
 		)
+		(property "LCSC" "C133909"
+			(at 186.69 102.87 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "KLC_S3.3" ""
+			(at 186.69 102.87 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "KLC_S4.1" ""
+			(at 186.69 102.87 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
 		(pin "5"
 			(uuid "c4f71999-8399-4d35-b543-1f27b85c2b95")
 		)
@@ -11644,7 +12304,7 @@
 				(justify left)
 			)
 		)
-		(property "Value" "LED"
+		(property "Value" "White"
 			(at 210.82 143.1924 90)
 			(show_name no)
 			(do_not_autoplace no)
@@ -11655,7 +12315,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "LED_SMD:LED_0603_1608Metric"
 			(at 208.28 143.51 0)
 			(hide yes)
 			(show_name no)
@@ -11690,6 +12350,39 @@
 		)
 		(property "Sim.Pins" "1=K 2=A"
 			(at 208.28 143.51 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "LCSC" "C2290"
+			(at 208.28 143.51 90)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "KLC_S3.3" ""
+			(at 208.28 143.51 90)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "KLC_S4.1" ""
+			(at 208.28 143.51 90)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -11815,7 +12508,7 @@
 				(justify left)
 			)
 		)
-		(property "Value" "C_Small_US"
+		(property "Value" "100n"
 			(at 151.13 21.7169 0)
 			(show_name no)
 			(do_not_autoplace no)
@@ -11826,7 +12519,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Capacitor_SMD:C_0603_1608Metric"
 			(at 148.59 20.32 0)
 			(hide yes)
 			(show_name no)
@@ -11849,6 +12542,39 @@
 			)
 		)
 		(property "Description" "capacitor, small US symbol"
+			(at 148.59 20.32 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "LCSC" "C14663"
+			(at 148.59 20.32 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "KLC_S3.3" ""
+			(at 148.59 20.32 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "KLC_S4.1" ""
 			(at 148.59 20.32 0)
 			(hide yes)
 			(show_name no)
@@ -11897,7 +12623,7 @@
 				(justify left)
 			)
 		)
-		(property "Value" "C_Small_US"
+		(property "Value" "100n"
 			(at 105.41 22.9869 0)
 			(show_name no)
 			(do_not_autoplace no)
@@ -11908,7 +12634,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Capacitor_SMD:C_0603_1608Metric"
 			(at 102.87 21.59 0)
 			(hide yes)
 			(show_name no)
@@ -11931,6 +12657,39 @@
 			)
 		)
 		(property "Description" "capacitor, small US symbol"
+			(at 102.87 21.59 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "LCSC" "C14663"
+			(at 102.87 21.59 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "KLC_S3.3" ""
+			(at 102.87 21.59 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "KLC_S4.1" ""
 			(at 102.87 21.59 0)
 			(hide yes)
 			(show_name no)
@@ -12135,7 +12894,7 @@
 				(justify left)
 			)
 		)
-		(property "Value" "C_Small_US"
+		(property "Value" "100n"
 			(at 140.97 22.9869 0)
 			(show_name no)
 			(do_not_autoplace no)
@@ -12146,7 +12905,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Capacitor_SMD:C_0603_1608Metric"
 			(at 138.43 21.59 0)
 			(hide yes)
 			(show_name no)
@@ -12169,6 +12928,39 @@
 			)
 		)
 		(property "Description" "capacitor, small US symbol"
+			(at 138.43 21.59 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "LCSC" "C14663"
+			(at 138.43 21.59 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "KLC_S3.3" ""
+			(at 138.43 21.59 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "KLC_S4.1" ""
 			(at 138.43 21.59 0)
 			(hide yes)
 			(show_name no)
@@ -12217,7 +13009,7 @@
 				(justify left)
 			)
 		)
-		(property "Value" "R_US"
+		(property "Value" "470"
 			(at 210.82 154.9399 0)
 			(show_name no)
 			(do_not_autoplace no)
@@ -12228,7 +13020,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Resistor_SMD:R_0603_1608Metric"
 			(at 209.296 153.924 90)
 			(hide yes)
 			(show_name no)
@@ -12251,6 +13043,39 @@
 			)
 		)
 		(property "Description" "Resistor, US symbol"
+			(at 208.28 153.67 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "LCSC" "C23179"
+			(at 208.28 153.67 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "KLC_S3.3" ""
+			(at 208.28 153.67 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "KLC_S4.1" ""
 			(at 208.28 153.67 0)
 			(hide yes)
 			(show_name no)
@@ -12299,7 +13124,7 @@
 				(justify left)
 			)
 		)
-		(property "Value" "C_Small_US"
+		(property "Value" "10u"
 			(at 175.26 40.7669 0)
 			(show_name no)
 			(do_not_autoplace no)
@@ -12310,7 +13135,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Capacitor_SMD:C_0603_1608Metric"
 			(at 172.72 39.37 0)
 			(hide yes)
 			(show_name no)
@@ -12333,6 +13158,39 @@
 			)
 		)
 		(property "Description" "capacitor, small US symbol"
+			(at 172.72 39.37 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "LCSC" "C19702"
+			(at 172.72 39.37 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "KLC_S3.3" ""
+			(at 172.72 39.37 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "KLC_S4.1" ""
 			(at 172.72 39.37 0)
 			(hide yes)
 			(show_name no)
@@ -12381,7 +13239,7 @@
 				(justify left)
 			)
 		)
-		(property "Value" "C_Small_US"
+		(property "Value" "100n"
 			(at 110.49 22.9869 0)
 			(show_name no)
 			(do_not_autoplace no)
@@ -12392,7 +13250,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Capacitor_SMD:C_0603_1608Metric"
 			(at 107.95 21.59 0)
 			(hide yes)
 			(show_name no)
@@ -12415,6 +13273,39 @@
 			)
 		)
 		(property "Description" "capacitor, small US symbol"
+			(at 107.95 21.59 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "LCSC" "C14663"
+			(at 107.95 21.59 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "KLC_S3.3" ""
+			(at 107.95 21.59 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "KLC_S4.1" ""
 			(at 107.95 21.59 0)
 			(hide yes)
 			(show_name no)
@@ -12463,7 +13354,7 @@
 				(justify left)
 			)
 		)
-		(property "Value" "R_US"
+		(property "Value" "470"
 			(at 191.77 154.9399 0)
 			(show_name no)
 			(do_not_autoplace no)
@@ -12474,7 +13365,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Resistor_SMD:R_0603_1608Metric"
 			(at 190.246 153.924 90)
 			(hide yes)
 			(show_name no)
@@ -12497,6 +13388,39 @@
 			)
 		)
 		(property "Description" "Resistor, US symbol"
+			(at 189.23 153.67 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "LCSC" "C23179"
+			(at 189.23 153.67 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "KLC_S3.3" ""
+			(at 189.23 153.67 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "KLC_S4.1" ""
 			(at 189.23 153.67 0)
 			(hide yes)
 			(show_name no)
@@ -12544,7 +13468,7 @@
 				)
 			)
 		)
-		(property "Value" "Crystal_GND24"
+		(property "Value" "8MHz"
 			(at 86.36 41.91 0)
 			(show_name no)
 			(do_not_autoplace no)
@@ -12554,7 +13478,7 @@
 				)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Crystal:Crystal_SMD_3225-4Pin_3.2x2.5mm"
 			(at 86.36 48.26 0)
 			(hide yes)
 			(show_name no)
@@ -12609,6 +13533,17 @@
 				)
 			)
 		)
+		(property "LCSC" "C115962"
+			(at 86.36 48.26 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
 		(pin "4"
 			(uuid "519494f3-05f5-481b-b632-5546a5e94c27")
 		)
@@ -12653,7 +13588,7 @@
 				(justify left)
 			)
 		)
-		(property "Value" "LED"
+		(property "Value" "RED"
 			(at 167.64 143.1924 90)
 			(show_name no)
 			(do_not_autoplace no)
@@ -12664,7 +13599,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "LED_SMD:LED_0603_1608Metric"
 			(at 165.1 143.51 0)
 			(hide yes)
 			(show_name no)
@@ -12699,6 +13634,39 @@
 		)
 		(property "Sim.Pins" "1=K 2=A"
 			(at 165.1 143.51 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "LCSC" "C2286"
+			(at 165.1 143.51 90)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "KLC_S3.3" ""
+			(at 165.1 143.51 90)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "KLC_S4.1" ""
+			(at 165.1 143.51 90)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -12746,7 +13714,7 @@
 				(justify left)
 			)
 		)
-		(property "Value" "LED"
+		(property "Value" "Green"
 			(at 182.88 143.1924 90)
 			(show_name no)
 			(do_not_autoplace no)
@@ -12757,7 +13725,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "LED_SMD:LED_0603_1608Metric"
 			(at 180.34 143.51 0)
 			(hide yes)
 			(show_name no)
@@ -12792,6 +13760,39 @@
 		)
 		(property "Sim.Pins" "1=K 2=A"
 			(at 180.34 143.51 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "LCSC" "C72043"
+			(at 180.34 143.51 90)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "KLC_S3.3" ""
+			(at 180.34 143.51 90)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "KLC_S4.1" ""
+			(at 180.34 143.51 90)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -12839,7 +13840,7 @@
 				(justify left)
 			)
 		)
-		(property "Value" "R_US"
+		(property "Value" "120"
 			(at 212.09 85.0899 0)
 			(show_name no)
 			(do_not_autoplace no)
@@ -12850,7 +13851,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Resistor_SMD:R_0603_1608Metric"
 			(at 210.566 84.074 90)
 			(hide yes)
 			(show_name no)
@@ -12873,6 +13874,39 @@
 			)
 		)
 		(property "Description" "Resistor, US symbol"
+			(at 209.55 83.82 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "LCSC" "C22787"
+			(at 209.55 83.82 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "KLC_S3.3" ""
+			(at 209.55 83.82 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "KLC_S4.1" ""
 			(at 209.55 83.82 0)
 			(hide yes)
 			(show_name no)
@@ -12921,7 +13955,7 @@
 				(justify left)
 			)
 		)
-		(property "Value" "Conn_01x04"
+		(property "Value" "UART"
 			(at 226.06 102.8699 0)
 			(show_name no)
 			(do_not_autoplace no)
@@ -12932,7 +13966,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Connector_PinHeader_2.54mm:PinHeader_1x04_P2.54mm_Vertical"
 			(at 223.52 100.33 0)
 			(hide yes)
 			(show_name no)
@@ -12955,6 +13989,39 @@
 			)
 		)
 		(property "Description" "Generic connector, single row, 01x04, script generated (kicad-library-utils/schlib/autogen/connector/)"
+			(at 223.52 100.33 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "LCSC" "C50981"
+			(at 223.52 100.33 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "KLC_S3.3" ""
+			(at 223.52 100.33 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "KLC_S4.1" ""
 			(at 223.52 100.33 0)
 			(hide yes)
 			(show_name no)
@@ -13166,7 +14233,7 @@
 				(justify left)
 			)
 		)
-		(property "Value" "R_US"
+		(property "Value" "470"
 			(at 219.71 154.9399 0)
 			(show_name no)
 			(do_not_autoplace no)
@@ -13177,7 +14244,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Resistor_SMD:R_0603_1608Metric"
 			(at 218.186 153.924 90)
 			(hide yes)
 			(show_name no)
@@ -13200,6 +14267,39 @@
 			)
 		)
 		(property "Description" "Resistor, US symbol"
+			(at 217.17 153.67 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "LCSC" "C23179"
+			(at 217.17 153.67 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "KLC_S3.3" ""
+			(at 217.17 153.67 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "KLC_S4.1" ""
 			(at 217.17 153.67 0)
 			(hide yes)
 			(show_name no)
@@ -13248,7 +14348,7 @@
 				(justify left)
 			)
 		)
-		(property "Value" "C_Small_US"
+		(property "Value" "100n"
 			(at 100.33 22.9869 0)
 			(show_name no)
 			(do_not_autoplace no)
@@ -13259,7 +14359,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Capacitor_SMD:C_0603_1608Metric"
 			(at 97.79 21.59 0)
 			(hide yes)
 			(show_name no)
@@ -13282,6 +14382,39 @@
 			)
 		)
 		(property "Description" "capacitor, small US symbol"
+			(at 97.79 21.59 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "LCSC" "C14663"
+			(at 97.79 21.59 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "KLC_S3.3" ""
+			(at 97.79 21.59 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "KLC_S4.1" ""
 			(at 97.79 21.59 0)
 			(hide yes)
 			(show_name no)
@@ -13528,6 +14661,39 @@
 				)
 			)
 		)
+		(property "LCSC" "C6186"
+			(at 185.42 30.48 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "KLC_S3.3" ""
+			(at 185.42 30.48 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "KLC_S4.1" ""
+			(at 185.42 30.48 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
 		(pin "2"
 			(uuid "c72a9b0f-ec8e-47fc-aab4-ba024954b87f")
 		)
@@ -13646,7 +14812,7 @@
 				)
 			)
 		)
-		(property "Value" "R_Small_US"
+		(property "Value" "5.1k"
 			(at 270.51 38.1 90)
 			(show_name no)
 			(do_not_autoplace no)
@@ -13656,7 +14822,7 @@
 				)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Resistor_SMD:R_0603_1608Metric"
 			(at 270.51 41.91 0)
 			(hide yes)
 			(show_name no)
@@ -13680,6 +14846,39 @@
 		)
 		(property "Description" "Resistor, small US symbol"
 			(at 270.51 41.91 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "LCSC" "C23186"
+			(at 270.51 41.91 90)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "KLC_S3.3" ""
+			(at 270.51 41.91 90)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "KLC_S4.1" ""
+			(at 270.51 41.91 90)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -13805,7 +15004,7 @@
 				(justify left)
 			)
 		)
-		(property "Value" "C_Small_US"
+		(property "Value" "100n"
 			(at 160.02 20.4469 0)
 			(show_name no)
 			(do_not_autoplace no)
@@ -13816,7 +15015,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Capacitor_SMD:C_0603_1608Metric"
 			(at 157.48 19.05 0)
 			(hide yes)
 			(show_name no)
@@ -13839,6 +15038,39 @@
 			)
 		)
 		(property "Description" "capacitor, small US symbol"
+			(at 157.48 19.05 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "LCSC" "C14663"
+			(at 157.48 19.05 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "KLC_S3.3" ""
+			(at 157.48 19.05 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "KLC_S4.1" ""
 			(at 157.48 19.05 0)
 			(hide yes)
 			(show_name no)
@@ -13887,7 +15119,7 @@
 				(justify left)
 			)
 		)
-		(property "Value" "LED"
+		(property "Value" "Orange"
 			(at 219.71 143.1924 90)
 			(show_name no)
 			(do_not_autoplace no)
@@ -13898,7 +15130,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "LED_SMD:LED_0603_1608Metric"
 			(at 217.17 143.51 0)
 			(hide yes)
 			(show_name no)
@@ -13933,6 +15165,39 @@
 		)
 		(property "Sim.Pins" "1=K 2=A"
 			(at 217.17 143.51 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "LCSC" "C12624"
+			(at 217.17 143.51 90)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "KLC_S3.3" ""
+			(at 217.17 143.51 90)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "KLC_S4.1" ""
+			(at 217.17 143.51 90)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -13979,7 +15244,7 @@
 				)
 			)
 		)
-		(property "Value" "SW_Push"
+		(property "Value" "Btn2"
 			(at 266.7 127 0)
 			(show_name no)
 			(do_not_autoplace no)
@@ -13989,7 +15254,7 @@
 				)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Button_Switch_SMD:SW_SPST_PTS645Sx43SMTR92"
 			(at 266.7 127 0)
 			(hide yes)
 			(show_name no)
@@ -14012,6 +15277,39 @@
 			)
 		)
 		(property "Description" "Push button switch, generic, two pins"
+			(at 266.7 132.08 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "LCSC" "C318884"
+			(at 266.7 132.08 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "KLC_S3.3" ""
+			(at 266.7 132.08 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "KLC_S4.1" ""
 			(at 266.7 132.08 0)
 			(hide yes)
 			(show_name no)
@@ -14059,7 +15357,7 @@
 				)
 			)
 		)
-		(property "Value" "SW_Push"
+		(property "Value" "Btn1"
 			(at 245.11 127 0)
 			(show_name no)
 			(do_not_autoplace no)
@@ -14069,7 +15367,7 @@
 				)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Button_Switch_SMD:SW_SPST_PTS645Sx43SMTR92"
 			(at 245.11 127 0)
 			(hide yes)
 			(show_name no)
@@ -14092,6 +15390,39 @@
 			)
 		)
 		(property "Description" "Push button switch, generic, two pins"
+			(at 245.11 132.08 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "LCSC" "C318884"
+			(at 245.11 132.08 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "KLC_S3.3" ""
+			(at 245.11 132.08 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "KLC_S4.1" ""
 			(at 245.11 132.08 0)
 			(hide yes)
 			(show_name no)
@@ -14140,7 +15471,7 @@
 				(justify left)
 			)
 		)
-		(property "Value" "C_Small_US"
+		(property "Value" "20p"
 			(at 82.55 54.7369 0)
 			(show_name no)
 			(do_not_autoplace no)
@@ -14151,7 +15482,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Capacitor_SMD:C_0603_1608Metric"
 			(at 80.01 53.34 0)
 			(hide yes)
 			(show_name no)
@@ -14174,6 +15505,39 @@
 			)
 		)
 		(property "Description" "capacitor, small US symbol"
+			(at 80.01 53.34 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "LCSC" "C1804"
+			(at 80.01 53.34 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "KLC_S3.3" ""
+			(at 80.01 53.34 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "KLC_S4.1" ""
 			(at 80.01 53.34 0)
 			(hide yes)
 			(show_name no)
